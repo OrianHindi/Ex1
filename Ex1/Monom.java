@@ -155,7 +155,7 @@ public class Monom implements function{
 
 	@Override
 	public function initFromString(String s) {
-			function ans = new Monom(this.toString());
+			function ans = new Monom(s);
 	return ans;
 	}
 
