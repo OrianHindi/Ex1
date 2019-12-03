@@ -9,7 +9,6 @@ public interface complex_function extends function{
 	 */
 	public void plus(function f1);
 	/** Multiply this complex_function with the f1 complex_function
-	 * 
 	 * @param f1 the complex_function which will be multiply be this complex_function.
 	 */
 	public void mul(function f1);
