@@ -5,7 +5,6 @@ package Ex1;
 public interface complex_function extends function{
 	
 	/** Add to this complex_function the f1 complex_function
-	 * 
 	 * @param f1 the complex_function which will be added to this complex_function.
 	 */
 	public void plus(function f1);

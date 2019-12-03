@@ -4,7 +4,7 @@ public class ComplexFunction implements  complex_function {
     private Node head;
 
     public ComplexFunction(){
-        this.head = null;
+
     }
     public ComplexFunction(Operation op, function f, function f1){
       this.head = new Node(op,f,f1);
