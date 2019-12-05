@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.management.RuntimeErrorException;
+import javax.swing.plaf.synth.SynthToolTipUI;
 
 
 /**
@@ -342,8 +343,13 @@ public class Polynom implements Polynom_able{
 
 	@Override
 	public function initFromString(String s) {
-		return null;
-	}
+		function ans = new Polynom(s);
+		return ans;
+		}
+
+
+
+
 
 	/**
 	 * the function is check if there are any same power.if there is add it to the monom.
@@ -373,10 +379,21 @@ public class Polynom implements Polynom_able{
 	public static void main(String[] args) {
 		Polynom s = new Polynom("-x^2+3");
 		double a = 0;
-		a= s.area(-1.7,0, 0.00001);
+		a = s.area(-1.7, 0, 0.00001);
 		System.out.println(a);
 		System.out.println(s.toString());
+		String p = "div(x3)";
+		int j =3;
+		p=p.substring(j+1,p.length()-1);
+		System.out.println(p);
+		String e = "";
+		for (int i = 0; i < p.length(); i++) {
+			if (p.charAt(i) == '(') {
+				e = p.substring(0, i );
+			}
+			System.out.println(e);
+
+		}
 
 	}
-
 }

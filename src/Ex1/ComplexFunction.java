@@ -1,140 +1,179 @@
 package Ex1;
 
 public class ComplexFunction implements  complex_function {
-    private Node head;
+    private Operation op=Operation.None;
+    private function left,right=null;
 
-    public ComplexFunction(String s,function f,function f1){
+    public ComplexFunction(String s,function left,function right){
         switch(s){
             case "plus":
-                this.head= new Node(Operation.Plus,f,f1);
+                this.op=Operation.Plus;
+                this.left=left;
+                this.right=right;
                 break;
 
             case "div":
-                this.head= new Node(Operation.Divide,f,f1);
+                this.op=Operation.Divide;
+                this.left=left;
+                this.right=right;
                 break;
 
             case "mul":
-                this.head= new Node(Operation.Times,f,f1);
+                this.op=Operation.Times;
+                this.left=left;
+                this.right=right;
                 break;
 
             case "max":
-                this.head= new Node(Operation.Max,f,f1);
+                this.op=Operation.Max;
+                this.left=left;
+                this.right=right;
                 break;
 
             case "min":
-                this.head = new Node(Operation.Min,f,f1);
+                this.op=Operation.Min;
+                this.left=left;
+                this.right=right;
+                break;
+
+            case "comp":
+                this.op=Operation.Comp;
+                this.left=left;
+                this.right=right;
                 break;
 
             default:
+                System.err.println("Wrong Operation,CF didnt built.");
                 return;
         }
     }
     public ComplexFunction(ComplexFunction f){
-       this.head= new Node(f.head);
+        this.op=f.op;
+        this.left=f.left;
+        this.right=f.right;
     }
 
     public ComplexFunction(){
-        this.head = null;
+        this.left=this.right=null;
     }
 
-    public ComplexFunction(function f){
-      this.head=new Node(f);
+    public ComplexFunction(function left){
+        this.left=left;
+        this.right=null;
     }
 
 
     @Override
-    public void plus(function f1) {
-        if(this.head.get_right()==null){
-            this.head.right=f1;
-            this.head.op=Operation.Plus;
+    public void plus(function right) {
+        if(this.right==null){
+            this.right=right;
+            this.op=Operation.Plus;
             return;
         }
-        Node temp = new Node(Operation.Plus);
-        temp.left=this;
-        temp.right=f1;
-        this.head=temp;
-        }
-
-    @Override
-    public void mul(function f1) {
-        if(this.head.get_right()==null){
-            this.head.right=f1;
-            this.head.op=Operation.Times;
-            return;
-        }
-        Node temp = new Node(Operation.Times);
-        temp.left=this;
-        temp.right=f1;
-        this.head=temp;
+        ComplexFunction temp = new ComplexFunction();
+        temp.op=Operation.Plus;
+        temp.left= new ComplexFunction(this);
+        temp.right=right;
+        this.op=temp.op;
+        this.left=temp.left;
+        this.right=temp.right;
     }
 
     @Override
-    public void div(function f1) {
-        if(this.head.get_right()==null){
-            this.head.right=f1;
-            this.head.op=Operation.Divide;
+    public void mul(function right) {
+        if(this.right==null){
+            this.right=right;
+            this.op=Operation.Times;
             return;
         }
-        Node temp = new Node(Operation.Divide);
-        temp.left=this;
-        temp.right=f1;
-        this.head=temp;
+        ComplexFunction temp = new ComplexFunction();
+        temp.op=Operation.Times;
+        temp.left= new ComplexFunction(this);
+        temp.right=right;
+        this.op=temp.op;
+        this.left=temp.left;
+        this.right=temp.right;
     }
 
     @Override
-    public void max(function f1) {
-      if(this.head.get_right()==null){
-          this.head.right=f1;
-          this.head.op=Operation.Max;
+    public void div(function right) {
+        if(this.right==null){
+            this.right=right;
+            this.op=Operation.Divide;
+            return;
+        }
+        ComplexFunction temp = new ComplexFunction();
+        temp.op=Operation.Divide;
+        temp.left= new ComplexFunction(this);
+        temp.right=right;
+        this.op=temp.op;
+        this.left=temp.left;
+        this.right=temp.right;
+    }
+
+    @Override
+    public void max(function right) {
+      if(this.right==null){
+          this.right=right;
+          this.op=Operation.Max;
           return;
       }
-      Node temp = new Node(Operation.Max);
-      temp.left=this;
-      temp.right=f1;
-      this.head=temp;
+        ComplexFunction temp = new ComplexFunction();
+        temp.op=Operation.Max;
+        temp.left= new ComplexFunction(this);
+        temp.right=right;
+        this.op=temp.op;
+        this.left=temp.left;
+        this.right=temp.right;
     }
 
 
     @Override
-    public void min(function f1) {
-        if(this.head.get_right()==null){
-            this.head.right=f1;
-            this.head.op=Operation.Min;
+    public void min(function right) {
+        if(this.right==null){
+            this.right=right;
+            this.op=Operation.Min;
             return;
         }
-        Node temp = new Node(Operation.Min);
-        temp.left= this;
-        temp.right = f1;
-        this.head=temp;
+        ComplexFunction temp = new ComplexFunction();
+        temp.op=Operation.Min;
+        temp.left= new ComplexFunction(this);
+        temp.right=right;
+        this.op=temp.op;
+        this.left=temp.left;
+        this.right=temp.right;
 
     }
 
     @Override
-    public void comp(function f1) {
-        if(this.head.get_right()==null){
-            this.head.right=f1;
-            this.head.op=Operation.Comp;
+    public void comp(function right) {
+        if(this.right==null){
+            this.right=right;
+            this.op=Operation.Comp;
             return;
         }
-        Node temp = new Node(Operation.Comp);
-        temp.left=this;
-        temp.right=f1;
-        this.head=temp;
+        ComplexFunction temp = new ComplexFunction();
+        temp.op=Operation.Comp;
+        temp.left= new ComplexFunction(this);
+        temp.right=right;
+        this.op=temp.op;
+        this.left=temp.left;
+        this.right=temp.right;
     }
 
     @Override
     public function left() {
-        return this.head.get_left();
+        return this.left;
     }
 
     @Override
     public function right() {
-        return this.head.get_right();
+        return this.right;
     }
 
     @Override
     public Operation getOp() {
-        return this.head.get_op();
+        return this.op;
     }
 
     @Override
@@ -144,8 +183,42 @@ public class ComplexFunction implements  complex_function {
 
     @Override
     public function initFromString(String s) {
-        return null;
+        ComplexFunction temp = new ComplexFunction();
+        function ans = temp.initRecursive(s);
+        return ans;
     }
+    private function initRecursive(String s){
+        if(!s.contains("(") || !s.contains(")")){
+            return new Polynom(s);
+        }
+        String help = "";
+        for (int i = 0; i <s.length() ; i++) {
+            if(s.charAt(i)== '('){
+                help=s.substring(0,i);
+                this.op=opFromString(help);
+                int Index = getPsik(s.substring(i+1,s.length()-1));
+                this.left=initRecursive(s.substring(i+1,Index));
+                this.right=initRecursive(s.substring(Index+1,s.length()-1));
+            }
+        }
+        function ans = new ComplexFunction(this);
+        return ans;
+    }
+    private int getPsik(String s){
+        int count = 0;
+        int ans=0;
+        for (int i = s.length()-1; i <=0 ; i--) {
+            if(s.charAt(i) == ')') count++;
+            if(s.charAt(i) == '(') count --;
+            if(s.charAt(i)== ',' && count==0){
+                 ans = i;
+                break;
+            }
+        }
+        return ans;
+    }
+
+
 
     @Override
     public function copy() {
@@ -153,52 +226,96 @@ public class ComplexFunction implements  complex_function {
         return ans;
     }
     public String toString(){
-    return "";
+        return this.checkOP(this.op) + this.left.toString() + "," + this.right.toString() + ")";
+    }
+    private Operation opFromString(String s){
+        switch(s){
+            case "plus": return Operation.Plus;
+            case "div": return Operation.Divide;
+            case "mul": return Operation.Times;
+            case "max": return Operation.Max;
+            case "min": return Operation.Min;
+            default:return Operation.None;
+        }
     }
 
-    private static class Node{
-        private Operation op=Operation.None;
-        private function left,right;
+    private String checkOP(Operation op){
+        switch(op){
+            case Plus:
+                return "plus(";
 
-        public Node(function f){
-            this.left= f;
-            this.right=null;
-        }
-        public Node(Operation op, function f, function f1){
-            this.op = op;
-            this.left=f;
-            this.right= f1;
-        }
-        public Node(Operation op){
-            this.op =op;
-            this.left=this.right=null;
-        }
-        public Node(Node s){
-            this.op=s.op;
-            this.left=s.left;
-            this.right=s.right;
-        }
-       public Operation get_op(){
-            return this.op;
-        }
-        public function get_right(){
-            return this.right;
-        }
-        public function get_left(){
-            return this.left;
+            case Times:
+                return "mul(";
+
+            case Divide:
+                return "div(";
+
+            case Max:
+                return "max(";
+
+            case Min:
+                return "min(";
+
+            case Comp:
+                return "comp(";
+
+            case None:
+
+            default:
+                return "";
         }
 
     }
+
+
+//    private static class Node{
+//        private Operation op=Operation.None;
+//        private function left,right;
+//        public Polynom polinom = null;
+//        public Node(){
+//
+//            this.right=null;
+//            this.left=null;
+//        }
+//        public Node(function f){
+//            this.left= f;
+//            this.right=null;
+//        }
+//        public Node(Operation op, function f, function f1){
+//            this.op = op;
+//            this.left=f;
+//            this.right= f1;
+//        }
+//        public Node(Operation op){
+//            this.op =op;
+//            this.left=this.right=null;
+//        }
+//        public Node(Node s){
+//            this.op=s.op;
+//            this.left=s.left;
+//            this.right=s.right;
+//        }
+//       public Operation get_op(){
+//            return this.op;
+//        }
+//        public function get_right(){
+//            return this.right;
+//        }
+//        public function get_left(){
+//            return this.left;
+//        }
+//
+//    }
 
     public static void main(String[] args) {
-        ComplexFunction e = new ComplexFunction(Operation.Plus,new Monom(4,3),new Monom(4,2));
+        ComplexFunction e = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
         function e1= e.copy();
         System.out.println(e1);
         System.out.println(e);
         e1=(ComplexFunction)e1;
-        System.out.println(((ComplexFunction) e1).head.op);
-        System.out.println(((ComplexFunction) e1).head.right);
-        System.out.println(((ComplexFunction) e1).head.left);
+        System.out.println(((ComplexFunction) e1).op);
+        System.out.println(((ComplexFunction) e1).right);
+        System.out.println(((ComplexFunction) e1).left);
         System.out.println("NOW E -------------");
         System.out.println(e.left());
         System.out.println(e.right());
@@ -206,13 +323,23 @@ public class ComplexFunction implements  complex_function {
         System.out.println( "be4 add");
         Monom m = new Monom(4,0);
         e.plus(m);
-        System.out.println(e.right());
-        System.out.println(e.getOp());
-        if(e.left() instanceof ComplexFunction){
-            System.out.println(((ComplexFunction) e.left()).getOp());
-            System.out.println(((ComplexFunction) e.left()).right());
-            System.out.println(((ComplexFunction) e.left()).left().toString());
-        }
+        Polynom s = new Polynom("x^2+3x-5");
+        e.div(s);
+        System.out.println(e.toString());
+        String check= e.toString();
+        function new1= e.initFromString(check);
+        System.out.println(new1.toString());
+
+//        System.out.println(e.toString());
+//        System.out.println("after add");
+//        System.out.println(e.right());
+//        System.out.println(e.getOp());
+//        System.out.println(e.left().toString());
+//        function f1= e.left;
+//        ComplexFunction f2 =
+//        System.out.println((ComplexFunction)f1.op);
+//        System.out.println(f1.left);
+//        System.out.println(f1.right);
 
 
     }

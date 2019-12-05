@@ -29,7 +29,7 @@ public class Monom implements function{
 	public int get_power() {
 		return this._power;
 	}
-	
+
 	/**
 	 * this method returns the derivative monom of this.
 	 * @return
@@ -56,142 +56,141 @@ public class Monom implements function{
 		s=s.toLowerCase();
 		badInput=s;
 		try {
-		double mekadem=0 ;
-		int hezka=0 ;
-		if(!s.contains("x")) {          // check if the string is 0 or a real number.
-			if(s.equals("0") || s.equals("0.0")) {				  
-				this._coefficient=0;							 
-				this._power=0;
-				return;
-			}
-			else {
-				mekadem=Double.parseDouble(s);
-				this._coefficient=mekadem;
-				this._power=0;
-				return;
-			}
-		}
-		for (int i = 0; i < s.length(); i++) {
-			if(i==0 & s.charAt(i) == 'x') {    //if string look like x , x^..
-				mekadem = 1;
-				if(s.length()>1) {
-					s=s.substring(2);
-					hezka= Integer.parseInt(s);
+			double mekadem=0 ;
+			int hezka=0 ;
+			if(!s.contains("x")) {          // check if the string is 0 or a real number.
+				if(s.equals("0") || s.equals("0.0")) {
+					this._coefficient=0;
+					this._power=0;
+					return;
 				}
 				else {
-					hezka =1;
+					mekadem=Double.parseDouble(s);
+					this._coefficient=mekadem;
+					this._power=0;
+					return;
 				}
-				break;
 			}
-			if(s.charAt(0)=='-'&& s.charAt(1) == 'x' ) {    //if the string look like -x,-x^..
-				mekadem= -1;
-				if (s.length()==2) {
-					hezka= 1;
-				}
-				if(s.length()>2) {
-					s=s.substring(3);
-					hezka = Integer.parseInt(s);
-				}
-
-				break;
-			}
-			if (s.charAt(i) =='x') {     //if string look like  +/-..x^.... , +/-...x
-				mekadem = Double.parseDouble(s.substring(0,i));
-				if(i == s.length()-1) {
-					hezka =1;
-					break;				
-				}
-				else {
-					hezka=Integer.parseInt(s.substring(i+2));
+			for (int i = 0; i < s.length(); i++) {
+				if(i==0 & s.charAt(i) == 'x') {    //if string look like x , x^..
+					mekadem = 1;
+					if(s.length()>1) {
+						s=s.substring(2);
+						hezka= Integer.parseInt(s);
+					}
+					else {
+						hezka =1;
+					}
 					break;
 				}
+				if(s.charAt(0)=='-'&& s.charAt(1) == 'x' ) {    //if the string look like -x,-x^..
+					mekadem= -1;
+					if (s.length()==2) {
+						hezka= 1;
+					}
+					if(s.length()>2) {
+						s=s.substring(3);
+						hezka = Integer.parseInt(s);
+					}
+
+					break;
+				}
+				if (s.charAt(i) =='x') {     //if string look like  +/-..x^.... , +/-...x
+					mekadem = Double.parseDouble(s.substring(0,i));
+					if(i == s.length()-1) {
+						hezka =1;
+						break;
+					}
+					else {
+						hezka=Integer.parseInt(s.substring(i+2));
+						break;
+					}
+				}
+
+
 			}
-
-
-		}
-		this._coefficient=mekadem;    
-		this._power=hezka;
+			this._coefficient=mekadem;
+			this._power=hezka;
 		}
 		catch(Exception e) {
 			System.out.println("Wrong input! The bad string is: " + badInput);
 		}
-		}
-		
-		
+	}
+
+
 	/**
 	 * if the power of monoms are same add the coefficeint else return.
 	 * @param m: monom that we want to add.
 	 */
-		public void add(Monom m) {      
-			if(this.get_power()!=m.get_power()) {
-				return;
-			}
-			else {
-				this.set_coefficient(this.get_coefficient()+m.get_coefficient());
-			}
+	public void add(Monom m) {
+		if(this.get_power()!=m.get_power()) {
+			return;
 		}
-		/**
-		 * This function get Monom and multiply the coefficient and add powers.
-		 * @param d
-		 */
-		public void multipy(Monom d) {
-			this.set_coefficient(this.get_coefficient()*d.get_coefficient());    
-			this.set_power(this.get_power()+d.get_power());  
+		else {
+			this.set_coefficient(this.get_coefficient()+m.get_coefficient());
 		}
-		/**
-		 * the function print the Monom.
-		 * @return String.
-		 */
-		public String toString() {
-			if (this.get_coefficient()== -1 && this.get_power()== 1) return "-x";
-			else if(this.get_coefficient() ==1 && this.get_power()== 1) return "x";
-			else if(this.get_power() ==1 ) return "" + this.get_coefficient() + "x";
-			else if(this.get_power()==0) return "" + this.get_coefficient();
-			else if(this.get_coefficient()==0 && this.get_power() ==1 ) return "0x";
-			else if(this.get_coefficient()==0 && this.get_power() ==0 ) return "0";
-			else if (this.get_coefficient() ==0 ) return "0x^" + this.get_power();
-			else return "" + this.get_coefficient() + "x^" +this.get_power();
-		}
+	}
+	/**
+	 * This function get Monom and multiply the coefficient and add powers.
+	 * @param d
+	 */
+	public void multipy(Monom d) {
+		this.set_coefficient(this.get_coefficient()*d.get_coefficient());
+		this.set_power(this.get_power()+d.get_power());
+	}
+	/**
+	 * the function print the Monom.
+	 * @return String.
+	 */
+	public String toString() {
+		if (this.get_coefficient()== -1 && this.get_power()== 1) return "-x";
+		else if(this.get_coefficient() ==1 && this.get_power()== 1) return "x";
+		else if(this.get_power() ==1 ) return "" + this.get_coefficient() + "x";
+		else if(this.get_power()==0) return "" + this.get_coefficient();
+		else if(this.get_coefficient()==0 && this.get_power() ==1 ) return "0x";
+		else if(this.get_coefficient()==0 && this.get_power() ==0 ) return "0";
+		else if (this.get_coefficient() ==0 ) return "0x^" + this.get_power();
+		else return "" + this.get_coefficient() + "x^" +this.get_power();
+	}
 
 	@Override
-	public function initFromString(String s) {
-			function ans = new Monom(s);
-	return ans;
+	public function initFromString(String s) { function ans = new Monom(s);
+		return ans;
 	}
 
 	@Override
 	public function copy() {
-			function ans = new Monom(this.get_coefficient(),this.get_power());
+		function ans = new Monom(this.get_coefficient(),this.get_power());
 		return ans;
 	}
 
 	/**
-		 * check if the coefficient equals and if powers is equals.
-		 * @param d
-		 * @return true if equals else flase.
-		 */
-		public boolean equals(Monom d) {  
-			if(this.get_coefficient()== 0 &&  d.get_coefficient() ==0 ) return true;
-			if(Math.abs(this.get_coefficient()-d.get_coefficient())<=EPSILON && this.get_power() ==d.get_power()) return true;
-			else return false;
-		}
-		// you may (always) add other methods.
+	 * check if the coefficient equals and if powers is equals.
+	 * @param d
+	 * @return true if equals else flase.
+	 */
+	public boolean equals(Monom d) {
+		if(this.get_coefficient()== 0 &&  d.get_coefficient() ==0 ) return true;
+		if(Math.abs(this.get_coefficient()-d.get_coefficient())<=EPSILON && this.get_power() ==d.get_power()) return true;
+		else return false;
+	}
+	// you may (always) add other methods.
 
-		//****** Private Methods and Data *******
+	//****** Private Methods and Data *******
 
 
-		private void set_coefficient(double a){
-			this._coefficient = a;
-		}
-		private void set_power(int p) {
-			if(p<0) {throw new RuntimeException("ERR the power of Monom should not be negative, got: "+p);}
-			this._power = p;
-		}
-		private static Monom getNewZeroMonom() {return new Monom(ZERO);}
-		private double _coefficient;
-		private int _power;
+	private void set_coefficient(double a){
+		this._coefficient = a;
+	}
+	private void set_power(int p) {
+		if(p<0) {throw new RuntimeException("ERR the power of Monom should not be negative, got: "+p);}
+		this._power = p;
+	}
+	private static Monom getNewZeroMonom() {return new Monom(ZERO);}
+	private double _coefficient;
+	private int _power;
 
-		public static void main(String[] args) {
+	public static void main(String[] args) {
 //			String[] secondcheck;
 //			String[] check = s.split("x");
 //			System.out.println(check.length);
@@ -202,23 +201,23 @@ public class Monom implements function{
 //				System.out.println(secondcheck.length);
 //				System.out.println(secondcheck[0]);
 //			}
-			//		System.out.println(x);
-			String p = "4px^90";
-			Monom a = new Monom(p);
-			Monom b = new Monom("0");
-			Monom c = new Monom("-9x^17");
-			
-			System.out.println("a=" + a.toString());
-			System.out.println("b=" + b.toString());
-			System.out.println("c=" + c.toString());
-			c.multipy(a);
-			System.out.println( " c*a =  " + c.toString());
-			b.multipy(a);
-			System.out.println("b*a =   " + b.toString());
-			
-			
-		}
+		//		System.out.println(x);
+		String p = "4px^90";
+		Monom a = new Monom(p);
+		Monom b = new Monom("0");
+		Monom c = new Monom("-9x^17");
+
+		System.out.println("a=" + a.toString());
+		System.out.println("b=" + b.toString());
+		System.out.println("c=" + c.toString());
+		c.multipy(a);
+		System.out.println( " c*a =  " + c.toString());
+		b.multipy(a);
+		System.out.println("b*a =   " + b.toString());
+
 
 	}
+
+}
 
 
