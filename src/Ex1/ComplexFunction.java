@@ -5,6 +5,7 @@ public class ComplexFunction implements  complex_function {
     private function left,right=null;
 
     public ComplexFunction(String s,function left,function right){
+        s=s.toLowerCase();
         switch(s){
             case "plus":
                 this.op=Operation.Plus;
@@ -192,25 +193,23 @@ public class ComplexFunction implements  complex_function {
             return new Polynom(s);
         }
         String help = "";
-        for (int i = 0; i <s.length() ; i++) {
-            if(s.charAt(i)== '('){
-                help=s.substring(0,i);
-                this.op=opFromString(help);
-                int Index = getPsik(s.substring(i+1,s.length()-1));
-                this.left=initRecursive(s.substring(i+1,Index));
-                this.right=initRecursive(s.substring(Index+1,s.length()-1));
-            }
-        }
+        int i = s.indexOf('(');
+        help=s.substring(0,i);
+        int Index = getPsik(s);
+        this.left=initRecursive(s.substring(i+1,Index));
+        this.op=opFromString(help);
+        this.right=initRecursive(s.substring(Index+1,s.length()-1));
+
         function ans = new ComplexFunction(this);
         return ans;
     }
     private int getPsik(String s){
         int count = 0;
         int ans=0;
-        for (int i = s.length()-1; i <=0 ; i--) {
+        for (int i =s.length()-1;i>-0;i--) {
             if(s.charAt(i) == ')') count++;
             if(s.charAt(i) == '(') count --;
-            if(s.charAt(i)== ',' && count==0){
+            if(s.charAt(i)== ',' && count==1){
                  ans = i;
                 break;
             }
@@ -235,6 +234,7 @@ public class ComplexFunction implements  complex_function {
             case "mul": return Operation.Times;
             case "max": return Operation.Max;
             case "min": return Operation.Min;
+            case "comp": return Operation.Comp;
             default:return Operation.None;
         }
     }
@@ -322,12 +322,12 @@ public class ComplexFunction implements  complex_function {
         System.out.println(e.getOp());
         System.out.println( "be4 add");
         Monom m = new Monom(4,0);
-        e.plus(m);
+
         Polynom s = new Polynom("x^2+3x-5");
         e.div(s);
         System.out.println(e.toString());
         String check= e.toString();
-        function new1= e.initFromString(check);
+        function new1= e.initFromString("x^2+5");
         System.out.println(new1.toString());
 
 //        System.out.println(e.toString());
