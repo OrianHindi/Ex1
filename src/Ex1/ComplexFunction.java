@@ -14,7 +14,7 @@ public class ComplexFunction implements  complex_function {
                 break;
 
             case "div":
-                this.op=Operation.Divide;
+                this.op=Operation.Divid;
                 this.left=left;
                 this.right=right;
                 break;
@@ -100,11 +100,11 @@ public class ComplexFunction implements  complex_function {
     public void div(function right) {
         if(this.right==null){
             this.right=right;
-            this.op=Operation.Divide;
+            this.op=Operation.Divid;
             return;
         }
         ComplexFunction temp = new ComplexFunction();
-        temp.op=Operation.Divide;
+        temp.op=Operation.Divid;
         temp.left= new ComplexFunction(this);
         temp.right=right;
         this.op=temp.op;
@@ -179,7 +179,14 @@ public class ComplexFunction implements  complex_function {
 
     @Override
     public double f(double x) {
-        return 0;
+        if(this.op== Operation.Times) return this.left.f(x)*this.right.f(x);
+        if(this.op==Operation.Plus) return this.left.f(x)+this.right.f(x);
+        if(this.op==Operation.Divid) return this.left.f(x)/this.right.f(x);
+        if(this.op==Operation.Max) return Math.max((this.left.f(x)),this.right.f(x));
+        if(this.op==Operation.Min) return Math.min(this.left.f(x),this.right.f(x));
+        if(this.op==Operation.Comp) return this.left.f(this.right.f(x));
+        else return this.left.f(x);
+
     }
 
     @Override
@@ -217,8 +224,6 @@ public class ComplexFunction implements  complex_function {
         return ans;
     }
 
-
-
     @Override
     public function copy() {
         function ans = new ComplexFunction(this);
@@ -230,7 +235,7 @@ public class ComplexFunction implements  complex_function {
     private Operation opFromString(String s){
         switch(s){
             case "plus": return Operation.Plus;
-            case "div": return Operation.Divide;
+            case "div": return Operation.Divid;
             case "mul": return Operation.Times;
             case "max": return Operation.Max;
             case "min": return Operation.Min;
@@ -247,7 +252,7 @@ public class ComplexFunction implements  complex_function {
             case Times:
                 return "mul(";
 
-            case Divide:
+            case Divid:
                 return "div(";
 
             case Max:
@@ -268,45 +273,6 @@ public class ComplexFunction implements  complex_function {
     }
 
 
-//    private static class Node{
-//        private Operation op=Operation.None;
-//        private function left,right;
-//        public Polynom polinom = null;
-//        public Node(){
-//
-//            this.right=null;
-//            this.left=null;
-//        }
-//        public Node(function f){
-//            this.left= f;
-//            this.right=null;
-//        }
-//        public Node(Operation op, function f, function f1){
-//            this.op = op;
-//            this.left=f;
-//            this.right= f1;
-//        }
-//        public Node(Operation op){
-//            this.op =op;
-//            this.left=this.right=null;
-//        }
-//        public Node(Node s){
-//            this.op=s.op;
-//            this.left=s.left;
-//            this.right=s.right;
-//        }
-//       public Operation get_op(){
-//            return this.op;
-//        }
-//        public function get_right(){
-//            return this.right;
-//        }
-//        public function get_left(){
-//            return this.left;
-//        }
-//
-//    }
-
     public static void main(String[] args) {
         ComplexFunction e = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
         function e1= e.copy();
@@ -325,22 +291,13 @@ public class ComplexFunction implements  complex_function {
 
         Polynom s = new Polynom("x^2+3x-5");
         e.div(s);
+        Polynom s2= new Polynom("x^3+x^2+x");
+        e.comp(s2);
         System.out.println(e.toString());
         String check= e.toString();
-        function new1= e.initFromString("x^2+5");
+        function new1= e.initFromString(e.toString());
         System.out.println(new1.toString());
-
-//        System.out.println(e.toString());
-//        System.out.println("after add");
-//        System.out.println(e.right());
-//        System.out.println(e.getOp());
-//        System.out.println(e.left().toString());
-//        function f1= e.left;
-//        ComplexFunction f2 =
-//        System.out.println((ComplexFunction)f1.op);
-//        System.out.println(f1.left);
-//        System.out.println(f1.right);
-
+        System.out.println(e.f(2));
 
     }
 

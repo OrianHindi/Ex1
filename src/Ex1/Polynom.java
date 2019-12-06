@@ -383,17 +383,20 @@ public class Polynom implements Polynom_able{
 		System.out.println(a);
 		System.out.println(s.toString());
 		String p = "div(x3)";
+		Polynom r1= new Polynom("x^2+2x");
+		Polynom_able s2=r1.derivative();
+		System.out.println(s2);
 		int j =3;
-		p=p.substring(j+1,p.length()-1);
-		System.out.println(p);
-		String e = "";
-		for (int i = 0; i < p.length(); i++) {
-			if (p.charAt(i) == '(') {
-				e = p.substring(0, i );
-			}
-			System.out.println(e);
-
-		}
+//		p=p.substring(j+1,p.length()-1);
+//		System.out.println(p);
+//		String e = "";
+//		for (int i = 0; i < p.length(); i++) {
+//			if (p.charAt(i) == '(') {
+//				e = p.substring(0, i );
+//			}
+//			System.out.println(e);
+//
+//		}
 
 	}
 }

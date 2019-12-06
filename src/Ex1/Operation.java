@@ -6,5 +6,5 @@ package Ex1;
  *
  */
 public enum Operation {
-	Plus, Times, Divide, Max, Min, Comp , None, Error
+	Plus, Times, Divid, Max, Min, Comp , None, Error
 }

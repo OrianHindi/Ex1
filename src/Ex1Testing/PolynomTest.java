@@ -1,3 +1,4 @@
+import Ex1.Monom;
 import Ex1.Polynom;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class PolynomTest {
         double[] expected ={30.968,316.8,-13,3,-2,1};
         double[] values ={3.2,4,-5,15,1,0};
         for (int i = 0; i < expected.length; i++) {
-            assertEquals(Polynoms[i].f(values[i]),expected[i],0.00000000000000001);
+            assertEquals(Polynoms[i].f(values[i]),expected[i], Monom.EPSILON);
         }
 
     }
