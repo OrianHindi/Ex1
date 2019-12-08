@@ -1,12 +1,13 @@
-import org.junit.Test;
 import Ex1.Monom;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import static org.junit.Assert.*;
 
 public class MonomTest{
 
     @Test
-    public void getComp() {
+    public void getComp() { //newfunction
     }
 
     @Test
@@ -21,71 +22,138 @@ public class MonomTest{
 
     @Test
     public void get_power() {
+        int [] power = {1, 4, 6, 5, 0};
+        for(int i=0; i < power.length; i++) {
+            Monom m1 = new Monom(3 , power[i]);
+            assertEquals(power[i],m1.get_power());
+        }
     }
 
     @Test
     public void derivative() {
+        String[] s = new String[]{"5x", "3x^2", "2x"};
+        String[] res = new String[]{"5.0", "6.0x", "2.0"};
+        for (int i = 0; i < s.length; i++) {
+            Monom m1 = new Monom(s[i]);
+            Monom m2 = new Monom(res[i]);
+            m1=m1.derivative();
+            assertEquals(m1.toString(), m2.toString());
+        }
     }
+
 
     @Test
     public void f() {
-    }
-
-    @Test
-    public void isZero() {
-    }
-
-    @Test
-    public void add() {
         boolean flag = true;
-        Monom s= new Monom("x");
-        Monom s1=new Monom("4x");
-        Monom s2=new Monom("5x");
-        s.add(s1);
-        if (s == s2) {
-            flag = false;
+        double res = 0.0;
+        String[] monom = {"5x", "3x", "2x"};
+        int x=0;
+        double[][] expected1 = {{0, 5, 10}, {0, 3, 6}, {0, 2, 4}};
+        for (int i = 0; i < expected1.length; i++) {
+            x=0;
+            Monom m1 = new Monom(monom[i]);
+            for (int j = 0; j < expected1.length; j++) {
+                res = m1.f(x);
+                if (res != expected1[i][j]) flag = false;
+                assertEquals(flag, true);
+                x++;
+            }
         }
-        assertEquals(flag,true );
-
     }
+
 
     @Test
-    public void multipy() {
-        boolean flag = true;
-        Monom s= new Monom("x");
-        Monom s1=new Monom("4x");
-        Monom s2=new Monom("4x^2");
-        s.multipy(s1);
-        if (s == s2) {
-            flag = false;
+    public void testMonomString() {
+        String[] s = new String[]{"5x^1", "3x^2", "2x^0"};
+        String[] res = new String[]{"5.0x", "3.0x^2", "2.0"};
+        for (int i = 0; i < s.length; i++) {
+            Monom m1 = new Monom(s[i]);
+            Monom m2 = new Monom(res[i]);
+            assertEquals(m1.toString(), m2.toString());
         }
-        assertEquals(flag,true );
     }
+
+
+        @Test
+        public void isZero () {
+            String[] s = new String[]{"0x", "0", "0x^2"};
+            boolean ans = true;
+            for (int i = 0; i < s.length; i++) {
+                Monom m1 = new Monom(s[i]);
+               ans = m1.isZero();
+               assertEquals(ans, true);
+            }
+        }
+
+        @Test
+        public void add () {
+            String[] s = new String[]{"5x", "3x", "2x"}; //"bx", "ax"
+            String[] s1 = new String[]{"x", "3x", "x" }; // "x", "zx"
+            String[] expected = new String[]{"6.0x", "6.0x", "3.0x", "0.0"};
+            for (int i = 0; i < s.length; i++) {
+                Monom m1 = new Monom(s[i]);
+                Monom m2 = new Monom(s1[i]);
+                Monom ex = new Monom(expected[i]);
+                m1.add(m2);
+                assertEquals(m1.toString(), ex.toString());
+            }
+        }
+
+
+        @Test
+        public void multipy () {
+            String[] s = new String[]{"5x", "3x", "2x"};
+            String[] s1 = new String[]{"x", "3x", "x"};
+            String[] expected = new String[]{"5.0x^2", "9.0x^2", "2x^2"};
+            for (int i = 0; i < s.length; i++) {
+                Monom m1 = new Monom(s[i]);
+                Monom m2 = new Monom(s1[i]);
+                Monom ex = new Monom(expected[i]);
+                m1.multipy(m2);
+                assertEquals(m1.toString(), ex.toString());
+                //try {
+//                m1.add(m2);
+//                fail("wrong input");
+                // }
+            }
+//            catch(RuntimeException e) {}
+        }
+
 
     @Test
     public void testToString() {
+        String[] s = new String[]{"5.0x", "3.0x", "2.0x"};
+        for (int i = 0; i < s.length; i++) {
+            Monom m1 = new Monom(s[i]);
+           assertEquals(m1.toString(), s[i]);
+        }
     }
 
     @Test
-    public void initFromString() {
+    public void initFromString() { //newfunction
     }
 
     @Test
     public void copy() {
-
+        String[] s = new String[]{"5.0x", "3.0x", "2.0x"};
+        Monom m1 = new Monom("");
+        for (int i = 0; i < s.length; i++) {
+            Monom m2 = new Monom(s[i]);
+            m1= (Monom) m2.copy();
+            assertEquals(m1.toString(), m2.toString());
+        }
     }
 
     @Test
     public void testEquals() {
-//        boolean flag = true;
-//        Monom s= new Monom("x");
-//        Monom s1= new Monom("x");
-//        if (s != s1) flag = false;
-//        assertEquals(flag , true);
-
+        boolean flag = true;
+        String[] s = new String[]{"5.0x", "3.0x", "2.0x"};
+        String[] s1 = new String[]{"5x", "3x", "2x"};
+        for (int i = 0; i < s.length; i++) {
+            Monom m1 = new Monom(s[i]);
+            Monom m2 = new Monom(s1[i]);
+            flag = m1.equals(m2);
+            assertEquals(flag , true);
+           }
+         }
     }
-
-    @Test
-    public void main() {
-    }
-}
