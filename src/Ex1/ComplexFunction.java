@@ -197,7 +197,8 @@ public class ComplexFunction implements  complex_function {
     }
     private function initRecursive(String s){
         if(!s.contains("(") || !s.contains(")")){
-            return new Polynom(s);
+            function ans2 = new Polynom(s);
+            return ans2;
         }
         String help = "";
         int i = s.indexOf('(');
@@ -295,7 +296,9 @@ public class ComplexFunction implements  complex_function {
         e.comp(s2);
         System.out.println(e.toString());
         String check= e.toString();
-        function new1= e.initFromString(e.toString());
+        function new1= e.initFromString("x^2+5");
+        ComplexFunction ps = new ComplexFunction((ComplexFunction)new1);
+        System.out.println(ps.toString());
         System.out.println(new1.toString());
         System.out.println(e.f(2));
 
