@@ -32,8 +32,9 @@ public class Polynom implements Polynom_able{
 	 * @param s: is a string represents a Polynom
 	 */
 
-	public Polynom(String s) { 
-
+	public Polynom(String s) {
+		if(s.charAt(0)== '+') s=s.substring(1);
+		s=s.replaceAll(" ", "");
 		int index=0;
 		boolean flag= true;
 		for (int i = 0; i < s.length(); i++) {
@@ -377,16 +378,17 @@ public class Polynom implements Polynom_able{
 	public LinkedList<Monom> arr = new LinkedList<Monom>();
 	//	
 	public static void main(String[] args) {
-		Polynom s = new Polynom("-x^2+3");
-		double a = 0;
-		a = s.area(-1.7, 0, 0.00001);
-		System.out.println(a);
+		Polynom s = new Polynom("+x^3 +  -5");
 		System.out.println(s.toString());
-		String p = "div(x3)";
-		Polynom r1= new Polynom("x^2+2x");
-		Polynom_able s2=r1.derivative();
-		System.out.println(s2);
-		int j =3;
+//		double a = 0;
+//		a = s.area(-1.7, 0, 0.00001);
+//		System.out.println(a);
+//		System.out.println(s.toString());
+//		String p = "div(x3)";
+//		Polynom r1= new Polynom("x^2+2x");
+//		Polynom_able s2=r1.derivative();
+//		System.out.println(s2);
+//		int j =3;
 //		p=p.substring(j+1,p.length()-1);
 //		System.out.println(p);
 //		String e = "";

@@ -113,7 +113,8 @@ public class Monom implements function{
 			this._power=hezka;
 		}
 		catch(Exception e) {
-			System.out.println("Wrong input! The bad string is: " + badInput);
+			System.err.println("Wrong input! Change the String");
+			throw new RuntimeException("Bad input");
 		}
 	}
 

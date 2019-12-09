@@ -6,6 +6,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
+<<<<<<< HEAD
+=======
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+>>>>>>> b553344f271c4f5b6e562a6fe83c34f402bf4e69
 
 
 public class Functions_GUI implements functions {
@@ -63,16 +69,25 @@ public class Functions_GUI implements functions {
     public void drawFunctions(String json_file) {
         Object obj = null;
         try{
+<<<<<<< HEAD
             //JSONParser jp = new JSONParser();
             
+=======
+            JsonParser jp = new JsonParser();
+
+
+>>>>>>> b553344f271c4f5b6e562a6fe83c34f402bf4e69
 
         }
         catch (Exception e){
 
         }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> b553344f271c4f5b6e562a6fe83c34f402bf4e69
 
     }
 
@@ -145,7 +160,11 @@ public class Functions_GUI implements functions {
 
     public static void main(String[] args) throws IOException {
         Functions_GUI fg = new Functions_GUI();
+<<<<<<< HEAD
         fg.initFromFile("/Users/yardn/Desktop/123.txt");
+=======
+        fg.initFromFile("/Users/yardn/Desktop/function_file.txt");
+>>>>>>> b553344f271c4f5b6e562a6fe83c34f402bf4e69
         Iterator<function> it = fg.fList.iterator();
         while(it.hasNext()){
             System.out.println(it.next());
