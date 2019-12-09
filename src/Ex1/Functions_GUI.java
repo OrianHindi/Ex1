@@ -1,28 +1,78 @@
 package Ex1;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Scanner;
+
 
 public class Functions_GUI implements functions {
     private LinkedList<function> fList = new LinkedList<>();
-    @Override
-    public void initFromFile(String file) throws IOException {
+    static ComplexFunction getInList = new ComplexFunction();
 
+    public Functions_GUI(){
+    }
+    @Override
+    public void initFromFile(String file)  {
+        try {
+            File functionFile = new File(file);
+
+            Scanner scan = new Scanner(functionFile);
+            String s = "";
+            while (scan.hasNext()) {
+                s = scan.nextLine();
+                if (!s.contains("(") || !s.contains(")")) {
+                    this.fList.add(new Polynom(s));
+                } else this.fList.add(getInList.initFromString(s));
+            }
+        }
+        catch(Exception e){
+            System.err.println("Path does not exist");
+
+        }
     }
 
-    @Override
-    public void saveToFile(String file) throws IOException {
 
-    }
+    @Override
+    public void saveToFile(String file)  {
+        try {
+            FileWriter File = new FileWriter(file);
+            Iterator<function> it = this.fList.iterator();
+            StringBuilder SB = new StringBuilder();
+            while (it.hasNext()) {
+                SB.append(it.next() + "\n");
+            }
+            File.write(SB.toString());
+            File.close();
+        }
+        catch(Exception e){
+            System.err.println("Wrong path of file.");
+        }
+        }
+
 
     @Override
     public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
+
 
     }
 
     @Override
     public void drawFunctions(String json_file) {
+        Object obj = null;
+        try{
+            //JSONParser jp = new JSONParser();
+            
+
+        }
+        catch (Exception e){
+
+        }
+
+
+
 
     }
 
@@ -91,5 +141,15 @@ public class Functions_GUI implements functions {
     public void clear() {
         this.fList.clear();
 
+    }
+
+    public static void main(String[] args) throws IOException {
+        Functions_GUI fg = new Functions_GUI();
+        fg.initFromFile("/Users/yardn/Desktop/123.txt");
+        Iterator<function> it = fg.fList.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+        fg.saveToFile("/Users/yardn/Desktop/1234.txt");
     }
 }
