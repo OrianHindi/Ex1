@@ -197,18 +197,17 @@ public class ComplexFunction implements  complex_function {
     }
     private function initRecursive(String s){
         if(!s.contains("(") || !s.contains(")")){
-            function ans2 = new Polynom(s);
-            return ans2;
+            return new Polynom(s);
+
         }
         String help = "";
         int i = s.indexOf('(');
         help=s.substring(0,i);
         int Index = getPsik(s);
-        this.left=initRecursive(s.substring(i+1,Index));
-        this.op=opFromString(help);
-        this.right=initRecursive(s.substring(Index+1,s.length()-1));
+        function left=initRecursive(s.substring(i+1,Index));
+        function right=initRecursive(s.substring(Index+1,s.length()-1));
 
-        function ans = new ComplexFunction(this);
+        function ans = new ComplexFunction(help,left,right);
         return ans;
     }
     private int getPsik(String s){
@@ -296,11 +295,24 @@ public class ComplexFunction implements  complex_function {
         e.comp(s2);
         System.out.println(e.toString());
         String check= e.toString();
-        function new1= e.initFromString("x^2+5");
-        ComplexFunction ps = new ComplexFunction((ComplexFunction)new1);
-        System.out.println(ps.toString());
+        function new1= e.initFromString(e.toString());
         System.out.println(new1.toString());
         System.out.println(e.f(2));
+        e.plus(new Monom(4,2));
+        System.out.println(e.toString());
+        System.out.println(new1.toString());
+        ComplexFunction r = new ComplexFunction("plus", new Monom(2,4),new Monom(4,1));
+        String q = "x^2+5";
+        function f = r.initFromString(q);
+        System.out.println(f.toString());
+        // r.pt.printInOrder();
+        // double x = r.f(1);
+        //  System.out.println(x);
+        // System.out.println("t");
+
+        //ComplexFunction s = (ComplexFunction)r.copy();
+         //ComplexFunction s = new ComplexFunction(r.copy());
+
 
     }
 
