@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 public class Functions_GUI implements functions {
@@ -56,21 +59,21 @@ public class Functions_GUI implements functions {
     @Override
     public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
 
+
     }
 
     @Override
     public void drawFunctions(String json_file) {
         Object obj = null;
         try{
-            
+            JsonParser jp = new JsonParser();
+
+
 
         }
         catch (Exception e){
 
         }
-
-
-
 
     }
 
@@ -143,7 +146,7 @@ public class Functions_GUI implements functions {
 
     public static void main(String[] args) throws IOException {
         Functions_GUI fg = new Functions_GUI();
-        fg.initFromFile("/Users/yardn/Desktop/123.txt");
+        fg.initFromFile("/Users/yardn/Desktop/function_file.txt");
         Iterator<function> it = fg.fList.iterator();
         while(it.hasNext()){
             System.out.println(it.next());

@@ -302,7 +302,8 @@ public class ComplexFunction implements  complex_function {
         System.out.println(e.toString());
         System.out.println(new1.toString());
         ComplexFunction r = new ComplexFunction("plus", new Monom(2,4),new Monom(4,1));
-        String q = "x^2+5";
+
+        String q = "mul(div(mul(8,8),4x^2),div(10,5))";
         function f = r.initFromString(q);
         System.out.println(f.toString());
         // r.pt.printInOrder();
