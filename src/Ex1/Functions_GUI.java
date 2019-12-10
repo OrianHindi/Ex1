@@ -1,7 +1,7 @@
 package Ex1;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.*;
+import java.io.*;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -11,9 +11,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
+
+
 public class Functions_GUI implements functions {
     private LinkedList<function> fList = new LinkedList<>();
     static ComplexFunction getInList = new ComplexFunction();
+    public static Color[] Colors = {Color.blue,Color.cyan,Color.MAGENTA,Color.ORANGE,Color.red,Color.GREEN,Color.PINK};
+
 
     public Functions_GUI(){
     }
@@ -58,21 +62,67 @@ public class Functions_GUI implements functions {
 
     @Override
     public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
+        int n = resolution;
+        StdDraw.setCanvasSize(width,height);
+        StdDraw.setPenColor(Color.LIGHT_GRAY);
+        StdDraw.setPenRadius(0.0005);
+        StdDraw.setXscale(rx.get_min(),rx.get_max());
+        StdDraw.setYscale(ry.get_min(),ry.get_max());
+        for (int i = (int) rx.get_min(); i <rx.get_max() ; i++) {
+            StdDraw.line(i,ry.get_max(),i,ry.get_min());
+        }
+        for (int i = (int)ry.get_min(); i <ry.get_max() ; i++) {
+            StdDraw.line(rx.get_max(),i,rx.get_min(),i);
+        }
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.setPenRadius(0.01);
+        StdDraw.setXscale(rx.get_min(),rx.get_max());
+        StdDraw.setYscale(ry.get_min(),ry.get_max());
+        StdDraw.line(rx.get_min(),0,rx.get_max(),0);
+        StdDraw.line(0,ry.get_min(),0,ry.get_max());
+        for (int i = (int)rx.get_min(); i <=rx.get_max() ; i++) {
+            StdDraw.text(i,-1,"" + i );
+        }
+        for (int i =(int) ry.get_min() ; i <=ry.get_max() ; i++) {
+            StdDraw.text(0.5,i, "" +i );
+        }
 
-
+        int size= this.fList.size();
+        double[] x = new double[n+1];
+        double[][] valueAtFx= new double[size][n+1];
+        double step = (rx.get_max()-rx.get_min())/n;
+        double x0=rx.get_min();
+        for(int i = 0;i<=n;i++){
+            x[i]=x0;
+            for (int j = 0; j <size ; j++) {
+                valueAtFx[j][i] = this.fList.get(j).f(x[i]);
+            }
+            x0+=step;
+        }
+        for (int i = 0; i < size; i++) {
+            int c = i%Colors.length;
+            StdDraw.setPenColor(Colors[c]);
+            StdDraw.setPenRadius(0.005);
+            System.out.println(i+ ") " + Colors[c] + "f(x)= " + this.fList.get(i).toString());
+            for (int j = 0; j < n ; j++) {
+                StdDraw.line(x[j],valueAtFx[i][j],x[j+1],valueAtFx[i][j+1]);
+            }
+        }
     }
 
     @Override
     public void drawFunctions(String json_file) {
-        Object obj = null;
+        Gson gson = new Gson();
         try{
-            JsonParser jp = new JsonParser();
-
-
+            FileReader reader = new FileReader(json_file);
+            params parmaters= gson.fromJson(reader,params.class);
+            Range rx = new Range(parmaters.Range_X[0],parmaters.Range_X[1]);
+            Range ry = new Range(parmaters.Range_Y[0],parmaters.Range_Y[1]);
+            drawFunctions(parmaters.Width,parmaters.Height,rx,ry,parmaters.Resolution);
 
         }
-        catch (Exception e){
-
+        catch(Exception e){
+            e.printStackTrace();
         }
 
     }
@@ -146,11 +196,13 @@ public class Functions_GUI implements functions {
 
     public static void main(String[] args) throws IOException {
         Functions_GUI fg = new Functions_GUI();
-        fg.initFromFile("/Users/yardn/Desktop/function_file.txt");
+        fg.initFromFile("/Users/yardn/Desktop/123.txt");
         Iterator<function> it = fg.fList.iterator();
         while(it.hasNext()){
             System.out.println(it.next());
         }
-        fg.saveToFile("/Users/yardn/Desktop/1234.txt");
+        fg.drawFunctions("/Users/yardn/Desktop/GUI_params (1).txt");
+
+
     }
 }
