@@ -196,12 +196,12 @@ public class Functions_GUI implements functions {
 
     public static void main(String[] args) throws IOException {
         Functions_GUI fg = new Functions_GUI();
-        fg.initFromFile("/Users/yardn/Desktop/123.txt");
+        fg.initFromFile("/Users/yardn/Desktop/1234.txt");
         Iterator<function> it = fg.fList.iterator();
         while(it.hasNext()){
             System.out.println(it.next());
         }
-        fg.drawFunctions("/Users/yardn/Desktop/GUI_params (1).txt");
+       fg.drawFunctions("/Users/yardn/Desktop/GUI_params (1).txt");
 
 
     }

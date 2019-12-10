@@ -203,19 +203,23 @@ public class Monom implements function{
 //				System.out.println(secondcheck[0]);
 //			}
 		//		System.out.println(x);
-		String p = "4px^90";
-		Monom a = new Monom(p);
-		Monom b = new Monom("0");
-		Monom c = new Monom("-9x^17");
+//		String p = "4px^90";
+////		Monom a = new Monom(p);
+////		Monom b = new Monom("0");
+////		Monom c = new Monom("-9x^17");
+////
+////		System.out.println("a=" + a.toString());
+////		System.out.println("b=" + b.toString());
+////		System.out.println("c=" + c.toString());
+////		c.multipy(a);
+////		System.out.println( " c*a =  " + c.toString());
+////		b.multipy(a);
+////		System.out.println("b*a =   " + b.toString());
 
-		System.out.println("a=" + a.toString());
-		System.out.println("b=" + b.toString());
-		System.out.println("c=" + c.toString());
-		c.multipy(a);
-		System.out.println( " c*a =  " + c.toString());
-		b.multipy(a);
-		System.out.println("b*a =   " + b.toString());
-
+		Polynom p1 = new Polynom("-0.3x^2+5x+1");
+		Polynom p2 = new Polynom("3x-3");
+		p1.multiply(p2);
+		System.out.println(p1.toString());
 
 	}
 

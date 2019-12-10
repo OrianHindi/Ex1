@@ -1,8 +1,8 @@
 package Ex1;
 
 public class ComplexFunction implements  complex_function {
-    private Operation op=Operation.None;
-    private function left,right=null;
+    public Operation op=Operation.None;
+    public function left=null,right=null;
 
     public ComplexFunction(String s,function left,function right){
         s=s.toLowerCase();
