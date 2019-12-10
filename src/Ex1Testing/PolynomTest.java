@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class PolynomTest {
     static Polynom[] Polynoms = new Polynom[6];
     static Polynom[] Polynoms1 = new Polynom[6];
