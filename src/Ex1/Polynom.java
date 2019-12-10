@@ -159,10 +159,10 @@ public class Polynom implements Polynom_able{
 	 * @return true if the Polynoms are equals,else return true;
 	 */
 
-	public boolean equals(Polynom_able p1) {
+	public boolean equals(Object p1) {
 		Iterator<Monom> it= this.iteretor();
-		Iterator<Monom> it1 = p1.iteretor();
-		while(it.hasNext()) {
+		Iterator<Monom> it1 = ((Polynom)p1).iteretor();
+		while(it.hasNext() && it1.hasNext()) {
 			Monom temp = it.next();
 			Monom temp1= it1.next();
 			if(!temp.equals(temp1)) return false;
@@ -378,8 +378,10 @@ public class Polynom implements Polynom_able{
 	public LinkedList<Monom> arr = new LinkedList<Monom>();
 	//	
 	public static void main(String[] args) {
-		Polynom s = new Polynom("+x^3 +  -5");
-		System.out.println(s.toString());
+		Polynom s1 = new Polynom("x+x+1");
+		Polynom s = new Polynom("2x+1");
+
+		System.out.println(s1.equals(s));
 //		double a = 0;
 //		a = s.area(-1.7, 0, 0.00001);
 //		System.out.println(a);
