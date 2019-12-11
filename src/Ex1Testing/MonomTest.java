@@ -8,10 +8,6 @@ import static org.junit.Assert.fail;
 
 public class MonomTest{
 
-    @Test
-    public void getComp() {
-
-    }
 
     @Test
     public void get_coefficient() {
@@ -129,13 +125,13 @@ public class MonomTest{
 
     @Test
     public void initFromString() {
+        String[] expected1 = new String[]{"5x", "3x^2", "2x"};
         String[] s = new String[]{"5x", "3x^2", "2x"};
-        String[] ex = new String[]{"5.0x", "3.0x^2", "2.0x"};
         for (int i = 0; i < s.length; i++) {
-            Monom m = new Monom(s[i]);
-            Monom ex1 = new Monom(ex[i]);
-            m.initFromString(s[i]);
-            assertEquals(m.toString(), ex[i]);
+            Monom m1 = new Monom(s[i]);
+            Monom ex = new Monom(expected1[i]);
+            m1.initFromString(s[i]);
+            assertEquals(m1, ex);
         }
     }
 

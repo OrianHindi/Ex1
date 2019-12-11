@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-//להוסיף בנאי אחר גם
 public class ComplexFunctionTest {
     String[] s = new String[]{"5x+1", "3x^2", "2x"};
     String[] s1 = new String[]{"x", "3x+2", "x^2"};
@@ -50,25 +49,35 @@ public class ComplexFunctionTest {
     }
 
 
-    @Test //עוד מקרים ומה שחוזק ממקס
+    @Test
     public void max() {
-            ComplexFunction cf1 = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
-            ComplexFunction cf = new ComplexFunction("plus",new Monom(2,3),new Monom(2,2));
-            String ex = "max(plus(2.0x^3,2.0x^2),plus(4.0x^3,4.0x^2))";
+        int[] expected ={1,2,0};
+        int[] expected1 ={6,5,2};
+        for (int i = 0; i < s.length; i++) {
+            ComplexFunction cf = new ComplexFunction(new Polynom(s[i]));
+            ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));
             cf.max(cf1);
-            double x=cf.f(2);
-            assertEquals(x,48,0.0);
+            double y = cf.f(0);
+            assertEquals(y, expected[i], 0.0);
+            y = cf.f(1);
+            assertEquals(y, expected1[i], 0.0);
+        }
     }
 
 
     @Test
     public void min() {
-//            ComplexFunction cf = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
-//            ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));
-//            ComplexFunction ex = new ComplexFunction(new Polynom(expected1[i]));
-//            cf.min(cf1);
-//            assertEquals(cf.equals(ex), true);
-//        }
+        int[] expected = {0, 0, 0};
+        int[] expected1 = {1, 3, 1};
+        for (int i = 0; i < s.length; i++) {
+            ComplexFunction cf = new ComplexFunction(new Polynom(s[i]));
+            ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));
+            cf.min(cf1);
+            double y = cf.f(0);
+            assertEquals(y, expected[i], 0.0);
+            y = cf.f(1);
+            assertEquals(y, expected1[i], 0.0);
+        }
     }
 
 
@@ -86,17 +95,29 @@ public class ComplexFunctionTest {
 
 
     @Test
-    public void left() { //add more examples
-            ComplexFunction cf = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
-            String expected = "4.0x^3";
-            assertEquals(cf.left.toString(), expected);
+    public void left() {
+        ComplexFunction x = new ComplexFunction("plus", new Monom(4, 3), new Monom(4, 2));
+        ComplexFunction y = new ComplexFunction("mul", new Monom(2, 1), new Monom(2, 2));
+        ComplexFunction z = new ComplexFunction("mul", new Monom(2, 3), new Monom(2, 2));
+        ComplexFunction[] cf = {x,y,z};
+        String[] expected1 = {"4.0x^3", "2.0x", "2.0x^3"};
+        for (int i = 0; i < expected1.length; i++) {
+            assertEquals(cf[i].left.toString(), expected1[i]);
+        }
     }
+
+
 
     @Test
     public void right() {
-        ComplexFunction cf = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
-        String expected = "4.0x^2";
-        assertEquals(cf.right.toString(), expected);
+        ComplexFunction x = new ComplexFunction("plus", new Monom(4, 3), new Monom(4, 2));
+        ComplexFunction y = new ComplexFunction("mul", new Monom(2, 1), new Monom(2, 2));
+        ComplexFunction z = new ComplexFunction("mul", new Monom(2, 3), new Monom(5, 2));
+        ComplexFunction[] cf = {x,y,z};
+        String[] expected1 = {"4.0x^2", "2.0x^2", "5.0x^2"};
+        for (int i = 0; i < expected1.length; i++) {
+            assertEquals(cf[i].right.toString(), expected1[i]);
+        }
     }
 
 
@@ -106,6 +127,10 @@ public class ComplexFunctionTest {
         ComplexFunction cf1 = new ComplexFunction(new Polynom("x+3"));
         cf.plus(cf1);
         assertEquals(cf.getOp(), Operation.Plus);
+        cf.div(cf1);
+        assertEquals(cf.getOp(), Operation.Divid);
+        cf.mul(cf1);
+        assertEquals(cf.getOp(), Operation.Times);
 
     }
 
@@ -149,13 +174,16 @@ public class ComplexFunctionTest {
         }
     }
 
-    //Add more examples
+
     @Test
     public void testToString() {
-        ComplexFunction cf = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
-        String expected1 = "plus(4.0x^3,4.0x^2)";
-            assertEquals(cf.toString(), expected1);
-
+        ComplexFunction x = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
+        ComplexFunction y = new ComplexFunction("mul",new Monom(4,2),new Monom(2,2));
+        ComplexFunction[] cf = {x,y};
+        String[] expected1 = {"plus(4.0x^3,4.0x^2)", "mul(4.0x^2,2.0x^2)"};
+        for (int i=0; i<expected1.length; i++) {
+            assertEquals(cf[i].toString(), expected1[i]);
+        }
     }
 
     @Test
