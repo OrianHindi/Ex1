@@ -12,7 +12,7 @@ import javax.swing.plaf.synth.SynthToolTipUI;
  * 1. Riemann's Integral: https://en.wikipedia.org/wiki/Riemann_integral
  * 2. Finding a numerical value between two values (currently support root only f(x)=0).
  * 3. Derivative
- * 
+ *
  * @author Boaz
  *
  */
@@ -57,7 +57,7 @@ public class Polynom implements Polynom_able{
 				index=i+1;
 			}
 			else if(i==s.length()-1) {
-				Monom temp = new Monom(s.substring(index));   
+				Monom temp = new Monom(s.substring(index));
 				flag=checkSame(this.arr, temp);
 				if(flag) {
 					this.arr.add(new Monom(temp));
@@ -158,19 +158,30 @@ public class Polynom implements Polynom_able{
 	 * @param p1 : is a Polynom able that repesent Polynom.
 	 * @return true if the Polynoms are equals,else return true;
 	 */
-
+	@Override
 	public boolean equals(Object p1) {
-		Iterator<Monom> it= this.iteretor();
-		Iterator<Monom> it1 = ((Polynom)p1).iteretor();
-		while(it.hasNext() && it1.hasNext()) {
-			Monom temp = it.next();
-			Monom temp1= it1.next();
-			if(!temp.equals(temp1)) return false;
+		if(p1 instanceof ComplexFunction){
+			ComplexFunction ans = (ComplexFunction)p1;
+			return ans.equals(this);
 		}
-		if(it.hasNext() && !it1.hasNext()) return false;
-		if(!it.hasNext() && it1.hasNext()) return false;
-
-		return true;
+		else if(p1 instanceof Polynom) {
+			Iterator<Monom> it = this.iteretor();
+			Iterator<Monom> it1 = ((Polynom) p1).iteretor();
+			while (it.hasNext() && it1.hasNext()) {
+				Monom temp = it.next();
+				Monom temp1 = it1.next();
+				if (!temp.equals(temp1)) return false;
+			}
+			if (it.hasNext() && !it1.hasNext()) return false;
+			if (!it.hasNext() && it1.hasNext()) return false;
+			return true;
+		}
+		else if(p1 instanceof Monom){
+			Monom s=(Monom)p1;
+			if(this.arr.size()>1) return false;
+			return this.arr.get(0).equals(s);
+		}
+		else return false;
 	}
 	/**
 	 * Test if this is the Zero Polynom.
@@ -184,7 +195,7 @@ public class Polynom implements Polynom_able{
 				return false;
 		}
 		return true;
-	}		
+	}
 	/**
 	 * Compute a value x' (x0<=x'<=x1) for with |f(x')| < eps
 	 * assuming (f(x0)*f(x1)<=0, else should throws runtimeException 
@@ -199,26 +210,26 @@ public class Polynom implements Polynom_able{
 	@Override
 	public double root (double x0, double x1, double eps) {  //fix.
 		if(this.isZero()) return 0;
-		double mid = 0; 
-		if(x0>x1) 
+		double mid = 0;
+		if(x0>x1)
 			return 0 ;
-		if ((f(x0)) * (f(x1)) > 0) 
+		if ((f(x0)) * (f(x1)) > 0)
 			throw new RuntimeException("ERR: The function does not cut the x axis");
 		if(f(x0)==0) return x0;
 		if(f(x1)==0) return x1;
-		while ((x1-x0)>= eps) {  
-			mid = (x0+x1)/2;   
-			if (f(mid) == 0.0) 
+		while ((x1-x0)>= eps) {
+			mid = (x0+x1)/2;
+			if (f(mid) == 0.0)
 				break;
-			else if ((f(mid)*f(x0)) < 0) 
-				x1 = mid; 
+			else if ((f(mid)*f(x0)) < 0)
+				x1 = mid;
 			else
-				x0 = mid; 
-		} 
+				x0 = mid;
+		}
 
 		return mid;
-	}		
-	/** 
+	}
+	/**
 	 * Create a deep copy of this.Polynom.
 	 * @return Polynom able.
 	 */
@@ -234,7 +245,7 @@ public class Polynom implements Polynom_able{
 
 		return s;
 	}
-	/** 
+	/**
 	 * Compute a new Polynom which is the derivative of this polynom.
 	 * @return Polynom able that repesent the derivative.
 	 */
@@ -266,11 +277,11 @@ public class Polynom implements Polynom_able{
 	@Override
 	public double area(double x0, double x1, double eps) {
 		if(this.isZero()) return 0;
-		
+
 		double sum=0;
 		for (double i =  x0; i <= x1; i+=eps) {
 			if(f(i)>=0) {
-			sum+= (this.f(i) * eps);
+				sum+= (this.f(i) * eps);
 			}
 		}
 		return sum;
@@ -295,7 +306,7 @@ public class Polynom implements Polynom_able{
 			Monom temp = it.next();
 			temp.multipy(m1);
 		}
-			this.checkZeros();
+		this.checkZeros();
 
 	}
 	/**
@@ -322,10 +333,10 @@ public class Polynom implements Polynom_able{
 		}
 
 	}
-/**
- * This function print the Polynom
- * @return String s : that repesent the Polynom.
- */
+	/**
+	 * This function print the Polynom
+	 * @return String s : that repesent the Polynom.
+	 */
 	@Override
 	public String toString() {
 		Iterator<Monom> it = this.iteretor();
@@ -346,7 +357,7 @@ public class Polynom implements Polynom_able{
 	public function initFromString(String s) {
 		function ans = new Polynom(s);
 		return ans;
-		}
+	}
 
 
 
@@ -369,19 +380,19 @@ public class Polynom implements Polynom_able{
 				}
 				return false;
 			}
-
 		}
 		return true;
-
 	}
 
 	public LinkedList<Monom> arr = new LinkedList<Monom>();
-	//	
-	public static void main(String[] args) {
-		Polynom s1 = new Polynom("x+x+1");
-		Polynom s = new Polynom("2x+1");
 
-		System.out.println(s1.equals(s));
+	public static void main(String[] args) {
+		Polynom s1 = new Polynom("x^3");
+		ComplexFunction s = new ComplexFunction();
+		function s2= s.initFromString("mul(mul(x,x),x)");
+		System.out.println(s1.equals(s2));
+
+
 //		double a = 0;
 //		a = s.area(-1.7, 0, 0.00001);
 //		System.out.println(a);

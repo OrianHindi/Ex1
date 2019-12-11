@@ -286,7 +286,7 @@ public class ComplexFunction implements  complex_function {
     }
 
     public boolean equals(Object obj) {
-        ComplexFunction cf = new ComplexFunction((ComplexFunction) obj);
+        function cf = (function) obj;
         int x=-100;
         while (x<=100) {
             if (cf.f(x) != this.f(x)) return false;
@@ -340,9 +340,9 @@ public class ComplexFunction implements  complex_function {
          //ComplexFunction s = new ComplexFunction(r.copy());
 
         ComplexFunction cf = new ComplexFunction(new Polynom("-x+x+1"));
-        cf.plus(new Polynom("2x"));
-        ComplexFunction cf1 = new ComplexFunction(new Polynom("2x+1"));
-        System.out.println(cf.equals(cf1));
+        cf.plus(new Polynom("2x+x^2"));
+        Polynom s = new Polynom("2x+1+x^2");
+        System.out.println(cf.equals(s));
 
         System.out.println("hhgfhgf");
 

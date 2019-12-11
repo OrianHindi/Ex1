@@ -167,13 +167,21 @@ public class Monom implements function{
 
 	/**
 	 * check if the coefficient equals and if powers is equals.
-	 * @param d
+	 * @param
 	 * @return true if equals else flase.
 	 */
-	public boolean equals(Monom d) {
-		if(this.get_coefficient()== 0 &&  d.get_coefficient() ==0 ) return true;
-		if(Math.abs(this.get_coefficient()-d.get_coefficient())<=EPSILON && this.get_power() ==d.get_power()) return true;
-		else return false;
+	public boolean equals(Object obj) {
+		if(obj instanceof  Monom) {
+			Monom d = (Monom)obj;
+			if (this.get_coefficient() == 0 && d.get_coefficient() == 0) return true;
+			if (Math.abs(this.get_coefficient() - d.get_coefficient()) <= EPSILON && this.get_power() == d.get_power())
+				return true;
+		}
+		else if(obj instanceof function) {
+			function ans = (function)obj;
+			return ans.equals(this);
+		}
+		return false;
 	}
 	// you may (always) add other methods.
 
@@ -216,10 +224,10 @@ public class Monom implements function{
 ////		b.multipy(a);
 ////		System.out.println("b*a =   " + b.toString());
 
-		Polynom p1 = new Polynom("-0.3x^2+5x+1");
-		Polynom p2 = new Polynom("3x-3");
-		p1.multiply(p2);
-		System.out.println(p1.toString());
+		Monom p1 = new Monom("x^3");
+		Polynom s2 = new Polynom("x^3");
+		//function s2 = s.initFromString("mul(mul(x,x),x)");
+		System.out.println(p1.equals(s2));
 
 	}
 
