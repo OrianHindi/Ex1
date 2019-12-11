@@ -2,13 +2,9 @@ package Ex1;
 
 import java.util.Objects;
 public class ComplexFunction implements  complex_function {
-<<<<<<< HEAD
     public Operation op=Operation.None;
     public function left=null,right=null;
-=======
-    private Operation op = Operation.None;
-    private function left, right = null;
->>>>>>> e3b914e57e4dba942b953a32faef83f301d56eec
+
 
     public ComplexFunction(String s, function left, function right) {
         s = s.toLowerCase();
