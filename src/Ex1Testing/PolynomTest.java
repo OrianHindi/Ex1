@@ -48,6 +48,9 @@ public class PolynomTest {
             Polynoms[i].add(Polynoms1[i]);
             assertEquals(expected[i],Polynoms[i].toString());
         }
+        Polynom s1 = new Polynom("0");
+        String s = "0.0";
+        assertEquals(s1.toString(),s);
     }
 
     @Test

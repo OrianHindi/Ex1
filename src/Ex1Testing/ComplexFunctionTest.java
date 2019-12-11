@@ -2,8 +2,9 @@ import Ex1.ComplexFunction;
 import Ex1.Monom;
 import Ex1.Operation;
 import Ex1.Polynom;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+
 import static org.junit.Assert.fail;
 
 public class ComplexFunctionTest {
@@ -54,7 +55,7 @@ public class ComplexFunctionTest {
 //
 
 
-    @BeforeEach
+    @BeforeClass
     void setUp() throws Exception {
          cf = new ComplexFunction(new Polynom("x+x+1"));
          cf1 = new ComplexFunction(new Polynom("2x+1"));
