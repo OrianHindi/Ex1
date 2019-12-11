@@ -129,7 +129,7 @@ public class Polynom implements Polynom_able{
 		Iterator<Monom> it = s.iteretor();
 		while(it.hasNext()) {
 			Monom temp = it.next();
-			temp.multipy(helper);
+			if(temp.get_coefficient()!=0)temp.multipy(helper);
 		}
 		this.add(s);
 		if(this.arr.size()==0) {
@@ -387,10 +387,10 @@ public class Polynom implements Polynom_able{
 	public LinkedList<Monom> arr = new LinkedList<Monom>();
 
 	public static void main(String[] args) {
-		Polynom s1 = new Polynom("x^3");
-		ComplexFunction s = new ComplexFunction();
-		function s2= s.initFromString("mul(mul(x,x),x)");
-		System.out.println(s1.equals(s2));
+		Polynom s1 = new Polynom("0");
+		Polynom_able s2 = new Polynom("x^3");
+		s2.substract(s1);
+		System.out.println(s2);
 
 
 //		double a = 0;

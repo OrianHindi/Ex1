@@ -86,7 +86,10 @@ public class PolynomTest {
     }
 
     @Test
-    public void testEquals() {
+    public void TestEquals() {
+        String[] expected ={""};
+
+
 
 
     }
