@@ -1,11 +1,11 @@
 import Ex1.Monom;
 import Ex1.Polynom;
+import Ex1.Polynom_able;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class PolynomTest {
     static Polynom[] Polynoms = new Polynom[6];
@@ -71,8 +71,8 @@ public class PolynomTest {
     public void substract() {
         String[] expected={"x^3-1.0x^2-0.3x-4.0","-1.0x^5+3.9x^3+13.4x-5.0","0.6x","x","-7x^50-1.0x^3-4.0x^2+x+1.0","-0.3x^2+2.0x+4.0"};
         for (int i = 0; i <Polynoms.length ; i++) {
-         Polynoms[i].substract(Polynoms1[i]);
-         assertTrue(Polynoms[i].equals(new Polynom(expected[i])));
+            Polynoms[i].substract(Polynoms1[i]);
+            assertTrue(Polynoms[i].equals(new Polynom(expected[i])));
         }
     }
 
@@ -87,62 +87,118 @@ public class PolynomTest {
 
     @Test
     public void TestEquals() {
-        String[] expected ={""};
-
-
-
-
+        String[] expected ={"x^2+1.3x","x^5+0.3x^3-0.4x+6","x^2+2x+2","x^3-x+6","7x^50+x^4+x+4","x^5+3x+2"};
+        Polynom[] ans = new Polynom[6];
+        for (int i = 0; i <expected.length ; i++) {
+            ans[i]= new Polynom(expected[i]);
+        }
+        for (int i = 0; i <Polynoms1.length ; i++) {
+            Polynoms1[i].add(new Monom("x^"+i));
+            Polynoms1[i].add(new Monom("" +i));
+            System.out.println(ans[i].toString());
+            System.out.println(Polynoms1[i].toString());
+            assertEquals(true,Polynoms1[i].equals(ans[i]));
+        }
+        for (int i = 0; i <Polynoms.length ; i++) {
+            Polynom p = new Polynom(Polynoms[i].toString());
+            Polynoms[i].substract(p);
+            assertEquals(true,Polynoms[i].equals(Monom.ZERO));
+        }
     }
 
     @Test
     public void isZero() {
+        for (int i = 0; i < Polynoms.length; i++) {
+            Polynom p = new Polynom(Polynoms[i].toString());
+            Polynoms[i].substract(p);
+            assertTrue(Polynoms[i].isZero());
+        }
+        Polynoms[0]= new Polynom("x+x^3-5");
+        Polynoms[1]= new Polynom("4.2x^3+12x+0");
+        Polynoms[2]= new Polynom("2.6x");
+        Polynoms[3] = new Polynom("3");
+        Polynoms[4] = new Polynom("-x^3+2x-4x^2+1");
+        Polynoms[5] = new Polynom("-0.3x^2+5x+1");
+        for (int i = 0; i <Polynoms.length ; i++) {
+            Polynoms[i].add(Polynoms1[i]);
+            System.out.println(Polynoms[i]);
+            assertEquals(false,Polynoms[i].isZero());
+        }
     }
-
     @Test
     public void root() {
+        double[] expected = {2.23606,2.11305};
+        Polynom s = new Polynom("x^2-5");
+        Polynom s1 = new Polynom("x^3+5x-20");
+        assertEquals(expected[0],s.root(1,3,Monom.EPSILON),0.0001);
+        assertEquals(expected[1],s1.root(1,3,Monom.EPSILON),0.0001);
     }
 
     @Test
     public void copy() {
+        Polynom_able[] copies = new Polynom[6];
+        for (int i = 0; i <Polynoms.length ; i++) {
+            copies[i]=Polynoms[i].copy();
+        }
+        for (int i = 0; i <Polynoms.length ; i++) {
+            assertEquals(Polynoms[i].toString(),copies[i].toString());
+        }
     }
 
     @Test
     public void derivative() {
+        String[] expected = {"3.0x^2+1.0","12.6x^2+12.0","2.6","0.0","-3.0x^2-8.0x+2.0","-0.6x+5.0"};
+        for (int i = 0; i <Polynoms.length ; i++) {
+           Polynom_able p = Polynoms[i].derivative();
+            assertTrue(p.equals(new Polynom(expected[i])));
+        }
     }
 
     @Test
     public void area() {
-    }
+        Polynom s= new Polynom("-3x+4");
+        Polynom s1= new Polynom("5x^2-5x-76");
+        Polynom s2 = new Polynom("-5x^2+5");
+        assertEquals(10.40206,s.area(-1.3,3,0.0001),0.00001);
+        assertEquals(0.0,s1.area(-1.3,3,0.0001),0.00001);
+        assertEquals(6.6666,s2.area(-1.3,3,0.0001),0.0001);
 
-    @Test
-    public void iteretor() {
+
     }
 
     @Test
     public void testMultiply() {
-    }
-
-    @Test
-    public void sortPolynom() {
-    }
-
-    @Test
-    public void checkZeros() {
+        Polynom p = new Polynom("x-1");
+        Polynom p2= new Polynom("x+1");
+        Polynom p3 = new Polynom("x^3+x-5");
+        Polynom p4 = new Polynom("4x");
+        p.multiply(p2);
+        p3.multiply(p4);
+        Polynom ans= new Polynom("x^2-1");
+        Polynom ans2 = new Polynom("4x^4+4x^2-20x");
+        assertEquals(true,p.equals(ans));
+        assertEquals(true, p3.equals(ans2));
     }
 
     @Test
     public void testToString() {
+        String[] expected = {"1.0x^3+x-5.0","4.2x^3+12.0x","2.6x","3.0","-1.0x^3-4.0x^2+2.0x+1.0","-0.3x^2+5.0x+1.0"};
+        for (int i = 0; i <Polynoms.length ; i++) {
+            assertEquals(expected[i],Polynoms[i].toString());
+        }
     }
 
     @Test
     public void initFromString() {
-    }
+        Polynom help = new Polynom();
+        String[] forpoly = {"1.0x^3+x-5.0","4.2x^3+12.0x","2.6x","3.0","-1.0x^3-4.0x^2+2.0x+1.0","-0.3x^2+5.0x+1.0"};
+        Polynom[] check = new Polynom[6];
+        for (int i = 0; i <check.length ; i++) {
+            check[i]=(Polynom)help.initFromString(forpoly[i]);
+        }
+        for (int i = 0; i <check.length ; i++) {
+            assertEquals(true,Polynoms[i].equals(check[i]));
+        }
 
-    @Test
-    public void checkSame() {
-    }
-
-    @Test
-    public void main() {
     }
 }

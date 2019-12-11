@@ -103,6 +103,7 @@ public class Polynom implements Polynom_able{
 
 		}
 		this.sortPolynom();
+		this.checkZeros();
 	}
 	/**
 	 * add m1 to this Polynom.
@@ -117,6 +118,7 @@ public class Polynom implements Polynom_able{
 			this.arr.add(m1);
 		}
 		this.sortPolynom();
+		this.checkZeros();
 	}
 	/** substract p1 from this Polynom.
 	 * @param p1: is a Polynom able that repesent a Polynom.
@@ -135,6 +137,7 @@ public class Polynom implements Polynom_able{
 		if(this.arr.size()==0) {
 			this.arr.add(new Monom("0"));
 		}
+		this.checkZeros();
 	}
 	/**
 	 * Multiply this Polynom by p1.
@@ -191,7 +194,7 @@ public class Polynom implements Polynom_able{
 	public boolean isZero() {
 		Iterator<Monom> Iter=this.iteretor();
 		while(Iter.hasNext()) {
-			if(Iter.next().get_coefficient()!=0)
+			if(!Iter.next().equals(Monom.ZERO))
 				return false;
 		}
 		return true;
@@ -306,6 +309,7 @@ public class Polynom implements Polynom_able{
 			Monom temp = it.next();
 			temp.multipy(m1);
 		}
+		this.sortPolynom();
 		this.checkZeros();
 
 	}
@@ -326,10 +330,6 @@ public class Polynom implements Polynom_able{
 			if(tmp.get_coefficient()==0 && this.arr.size()>1) {
 				this.arr.remove(tmp);
 			}
-		}
-		if(this.arr.size()==1 && this.arr.getFirst().get_coefficient()==0) {
-			this.add(new Monom ("0"));
-			this.arr.remove(0);
 		}
 
 	}
@@ -384,34 +384,16 @@ public class Polynom implements Polynom_able{
 		return true;
 	}
 
+
 	public LinkedList<Monom> arr = new LinkedList<Monom>();
 
 	public static void main(String[] args) {
-		Polynom s1 = new Polynom("0");
-		Polynom_able s2 = new Polynom("x^3");
-		s2.substract(s1);
-		System.out.println(s2);
+		Polynom s = new Polynom("-5x^2+5");
+		double x = s.area(-1.3,3,0.0001);
+		System.out.println(x);
 
+		}
 
-//		double a = 0;
-//		a = s.area(-1.7, 0, 0.00001);
-//		System.out.println(a);
-//		System.out.println(s.toString());
-//		String p = "div(x3)";
-//		Polynom r1= new Polynom("x^2+2x");
-//		Polynom_able s2=r1.derivative();
-//		System.out.println(s2);
-//		int j =3;
-//		p=p.substring(j+1,p.length()-1);
-//		System.out.println(p);
-//		String e = "";
-//		for (int i = 0; i < p.length(); i++) {
-//			if (p.charAt(i) == '(') {
-//				e = p.substring(0, i );
-//			}
-//			System.out.println(e);
-//
-//		}
 
 	}
-}
+

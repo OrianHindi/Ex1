@@ -60,6 +60,11 @@ public class Functions_GUI implements functions {
         }
 
 
+
+
+    private void drawFunctions(){
+
+    }
     @Override
     public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
         int n = resolution;
@@ -121,7 +126,7 @@ public class Functions_GUI implements functions {
             drawFunctions(parmaters.Width,parmaters.Height,rx,ry,parmaters.Resolution);
 
         }
-        catch(Exception e){
+        catch(FileNotFoundException| IllegalArgumentException |com.google.gson.JsonSyntaxException| com.google.gson.JsonIOException e){
             e.printStackTrace();
         }
 
