@@ -339,12 +339,17 @@ public class ComplexFunction implements  complex_function {
         //ComplexFunction s = (ComplexFunction)r.copy();
          //ComplexFunction s = new ComplexFunction(r.copy());
 
-        ComplexFunction cf = new ComplexFunction(new Polynom("-x+x+1"));
-        cf.plus(new Polynom("2x+x^2"));
-        Polynom s = new Polynom("2x+1+x^2");
-        System.out.println(cf.equals(s));
+//        ComplexFunction cf = new ComplexFunction(new Polynom("-x+x+1"));
+//        cf.plus(new Polynom("2x+x^2"));
+//        Polynom s = new Polynom("2x+1+x^2");
+//        System.out.println(cf.equals(s));
+//
+//        System.out.println("hhgfhgf");
 
-        System.out.println("hhgfhgf");
+
+            ComplexFunction cf = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
+            System.out.println(cf.toString());
+
 
 
     }

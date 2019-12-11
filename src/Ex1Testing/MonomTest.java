@@ -1,4 +1,6 @@
+import Ex1.ComplexFunction;
 import Ex1.Monom;
+import Ex1.Polynom;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -7,7 +9,8 @@ import static org.junit.Assert.fail;
 public class MonomTest{
 
     @Test
-    public void getComp() { //newfunction
+    public void getComp() {
+
     }
 
     @Test
@@ -111,12 +114,7 @@ public class MonomTest{
                 Monom ex = new Monom(expected[i]);
                 m1.multipy(m2);
                 assertEquals(m1.toString(), ex.toString());
-                //try {
-//                m1.add(m2);
-//                fail("wrong input");
-                // }
             }
-//            catch(RuntimeException e) {}
         }
 
 
@@ -130,7 +128,15 @@ public class MonomTest{
     }
 
     @Test
-    public void initFromString() { //newfunction
+    public void initFromString() {
+        String[] s = new String[]{"5x", "3x^2", "2x"};
+        String[] ex = new String[]{"5.0x", "3.0x^2", "2.0x"};
+        for (int i = 0; i < s.length; i++) {
+            Monom m = new Monom(s[i]);
+            Monom ex1 = new Monom(ex[i]);
+            m.initFromString(s[i]);
+            assertEquals(m.toString(), ex[i]);
+        }
     }
 
     @Test
