@@ -19,14 +19,17 @@ public class Functions_GUI implements functions {
     static ComplexFunction getInList = new ComplexFunction();
     public static Color[] Colors = {Color.blue,Color.cyan,Color.MAGENTA,Color.ORANGE,Color.red,Color.GREEN,Color.PINK};
 
-
     public Functions_GUI(){
     }
+
+    /**
+     * Init a new collection of functions from a file
+     * @param file - the file name
+     * @throws IOException if the file does not exists or unreadable
+     */
     @Override
     public void initFromFile(String file) throws IOException {
-
         File functionFile = new File(file);
-
         Scanner scan = new Scanner(functionFile);
         String s = "";
         while (scan.hasNext()) {
@@ -39,11 +42,13 @@ public class Functions_GUI implements functions {
     }
 
 
-
-
+    /**
+     *
+     * @param file - the file name
+     * @throws IOException if the file is not writable
+     */
     @Override
     public void saveToFile(String file) throws IOException {
-
         FileWriter File = new FileWriter(file);
         Iterator<function> it = this.fList.iterator();
         StringBuilder SB = new StringBuilder();
@@ -54,12 +59,25 @@ public class Functions_GUI implements functions {
         File.close();
     }
 
+    /**
+     * draw function with StdDraw.
+     * using defult parameters
+     */
     public void drawFunctions(){
         Range rx = new Range(-15,15);
         Range ry= new Range(-15,15);
         this.drawFunctions(1000,600,rx,ry,200);
-
     }
+
+    /**
+     * Draws all the functions in the collection in a GUI window using the
+     * given parameters for the GUI window and the range & resolution
+     * @param width - the width of the window
+     * @param height - the height of the window
+     * @param rx - the range of the horizontal axis
+     * @param ry - the range of the vertical axis
+     * @param resolution - the number of samples with in rx
+     */
     @Override
     public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
         int n = resolution;
@@ -86,7 +104,6 @@ public class Functions_GUI implements functions {
         for (int i =(int) ry.get_min() ; i <=ry.get_max() ; i++) {
             StdDraw.text(0.5,i, "" +i );
         }
-
         int size= this.fList.size();
         double[] x = new double[n+1];
         double[][] valueAtFx= new double[size][n+1];
@@ -110,6 +127,11 @@ public class Functions_GUI implements functions {
         }
     }
 
+    /**
+     * Draws all the functions in the collection in a GUI window using the given JSON file
+     * @param json_file - the file with all the parameters for the GUI window.
+     * if the file id not readable or in wrong format should use default values.
+     */
     @Override
     public void drawFunctions(String json_file) {
         Gson gson = new Gson();
@@ -119,7 +141,6 @@ public class Functions_GUI implements functions {
             Range rx = new Range(parmaters.Range_X[0],parmaters.Range_X[1]);
             Range ry = new Range(parmaters.Range_Y[0],parmaters.Range_Y[1]);
             drawFunctions(parmaters.Width,parmaters.Height,rx,ry,parmaters.Resolution);
-
         }
         catch(FileNotFoundException| IllegalArgumentException |com.google.gson.JsonSyntaxException| com.google.gson.JsonIOException e){
             if(e instanceof  IllegalArgumentException){
@@ -141,9 +162,7 @@ public class Functions_GUI implements functions {
                 System.out.println("File wasnt found, print default canvas.");
                 e.printStackTrace();
             }
-
         }
-
     }
 
     @Override
@@ -215,5 +234,4 @@ public class Functions_GUI implements functions {
     public function get(int i){
         return this.fList.get(i);
     }
-
 }
