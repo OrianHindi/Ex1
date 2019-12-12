@@ -61,7 +61,7 @@ public class Functions_GUI implements functions {
 
     /**
      * draw function with StdDraw.
-     * using defult parameters
+     * using default parameters
      */
     public void drawFunctions(){
         Range rx = new Range(-15,15);

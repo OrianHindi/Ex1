@@ -2,6 +2,7 @@ import Ex1.*;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.function.Function;
 
 import static org.junit.Assert.*;
 /**
@@ -45,14 +46,10 @@ public class Functions_GUITest {
 
     @Test
     public void initFromFile() {
-        Functions_GUI xf = new Functions_GUI();
-        String[] cf = {"max(div(mul(x^12,4x^3),4x^2),3)","min(comp(4x^2,3),3)","x^2+5x+3","max(mul(div(4x,3),x^3),3x+2)"};
-        for (int i = 0; i <cf.length ; i++) {
-            xf.add(helper.initFromString(cf[i]));
-        }
+        Functions_GUI xf = (Functions_GUI)FunctionsFactory();
         Functions_GUI same = new Functions_GUI();
         try {
-            same.initFromFile("/Users/yardn/Desktop/testfile.txt");
+            same.initFromFile("function_file2.txt");
         }
         catch (Exception e){
             e.printStackTrace();
@@ -64,20 +61,16 @@ public class Functions_GUITest {
 
     @Test
     public void saveToFile() {
-        String[] cf = {"max(div(mul(x^12,4x^3),4x^2),3)","min(comp(4x^2,3),3)","x^2+5x+3","max(mul(div(4x,3),x^3),3x+2)"};
-        Functions_GUI fg = new Functions_GUI();
-        for (int i = 0; i <cf.length ; i++) {
-            fg.add(helper.initFromString(cf[i]));
-        }
+        Functions_GUI fg = (Functions_GUI)FunctionsFactory();
         try {
-            fg.saveToFile("/Users/yardn/Desktop/1234.txt");
+            fg.saveToFile("function_file.txt");
         }
         catch (Exception e){
             e.printStackTrace();
         }
         Functions_GUI fg2= new Functions_GUI();
         try {
-            fg2.initFromFile("/Users/yardn/Desktop/1234.txt");
+            fg2.initFromFile("function_file2.txt");
         }
         catch (Exception e){
             e.printStackTrace();
@@ -91,26 +84,14 @@ public class Functions_GUITest {
     //the default drawFunctions.
     @Test
     public void drawFunctions() {
-        Functions_GUI xf = new Functions_GUI();
-        try {
-            xf.initFromFile("/Users/yardn/Desktop/function_file.txt");
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        Functions_GUI xf = (Functions_GUI)FunctionsFactory();
         xf.drawFunctions();
     }
 
     //the function that get parameters.
     @Test
     public void testDrawFunctions() {
-        Functions_GUI xf = new Functions_GUI();
-        try{
-            xf.initFromFile("/Users/yardn/Desktop/function_file.txt");
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        Functions_GUI xf =(Functions_GUI)FunctionsFactory();
         Range rx = new Range(-12,12);
         Range ry = new Range(-20,20);
         xf.drawFunctions(500,550,rx,ry,300);
@@ -118,14 +99,8 @@ public class Functions_GUITest {
     //draw function that get a parameters from jsonfile.
     @Test
     public void testDrawFunctions1() {
-        Functions_GUI xf = new Functions_GUI();
-        try{
-            xf.initFromFile("/Users/yardn/Desktop/function_file.txt");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        xf.drawFunctions("/Users/yardn/Desktop/GUI_params.txt");
+        Functions_GUI xf = (Functions_GUI)FunctionsFactory();
+        xf.drawFunctions("GUI_params.txt");
     }
     public static functions FunctionsFactory() {
         functions ans = new Functions_GUI();

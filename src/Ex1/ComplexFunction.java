@@ -1,16 +1,34 @@
 package Ex1;
 
 import java.util.Objects;
+
+/**
+ * @authors Orian Hindi and Shani Hayik.
+ */
 public class ComplexFunction implements  complex_function {
     public Operation op=Operation.None;
     public function left=null,right=null;
 
+    /**
+     * Constructor that buid a ComplexFunction from Operation and two function.
+     * @param op the Operation for the new function.
+     * @param left the left function of the complex function.
+     * @param right the right function of the complex function.
+     */
     public ComplexFunction(Operation op, function left,function right){
        if(op == Operation.Error) throw new RuntimeException("ERROR.Change Operation.");
         this.op = op;
         this.left= left;
         this.right=right;
     }
+
+    /**
+     * Constructor that build a ComplexFunction From string and two function.
+     * @param s String that repesent the Operation from the ComplexFunction.
+     * @param left the left function of the complex function.
+     * @param right the right function of the complex function.
+     *  throw Runtimeexception error if the if the Operation in None with 2 functions or the Operation is Error.
+     */
     public ComplexFunction(String s, function left, function right) {
         s = s.toLowerCase();
         switch (s) {
@@ -55,22 +73,36 @@ public class ComplexFunction implements  complex_function {
         }
     }
 
+    /**
+     * A copy Constructor.
+     * @param f is a complex function that we want to copy.
+     */
     public ComplexFunction(ComplexFunction f) {
         this.op = f.op;
         this.left = f.left;
         this.right = f.right;
     }
 
+    /**
+     * A default Constructor for self use in the inside classes.
+     */
     public ComplexFunction() {
         this.left = this.right = null;
     }
 
+    /**
+     * A Constructor that build a Complex function with only left function,right function point to null and Operation is None.
+     * @param left the left function of the new complex function.
+     */
     public ComplexFunction(function left) {
         this.left = left;
         this.right = null;
     }
 
-
+    /**
+     *Add to this Complex function the right function.
+     * @param right the function which will be added to this complex function.
+     */
     @Override
     public void plus(function right) {
         if (this.right == null) {
@@ -87,6 +119,10 @@ public class ComplexFunction implements  complex_function {
         this.right = temp.right;
     }
 
+    /**
+     * Multiply this Complex function the the right function.
+     * @param right the function which will multiply with this complex function.
+     */
     @Override
     public void mul(function right) {
         if (this.right == null) {
@@ -103,6 +139,10 @@ public class ComplexFunction implements  complex_function {
         this.right = temp.right;
     }
 
+    /**
+     * Divide this Complex function with right function.
+     * @param right the function which will be Divide with this Complex function.
+     */
     @Override
     public void div(function right) {
         if (this.right == null) {
@@ -119,6 +159,10 @@ public class ComplexFunction implements  complex_function {
         this.right = temp.right;
     }
 
+    /**
+     * Computes the maximum over this complex function and the right function.
+     * @param right the function which will be compared with this complex function to compute to maximum.
+     */
     @Override
     public void max(function right) {
         if (this.right == null) {
@@ -135,7 +179,10 @@ public class ComplexFunction implements  complex_function {
         this.right = temp.right;
     }
 
-
+    /**
+     * Computes the minimum over this complex function and the right function.
+     * @param right the function which will be compared with this complex function to compute to minimum,
+     */
     @Override
     public void min(function right) {
         if (this.right == null) {
@@ -153,6 +200,10 @@ public class ComplexFunction implements  complex_function {
 
     }
 
+    /**
+     * this method wrap the right function with this function : this.f(right.f(x)).
+     * @param right function.
+     */
     @Override
     public void comp(function right) {
         if (this.right == null) {
@@ -169,21 +220,38 @@ public class ComplexFunction implements  complex_function {
         this.right = temp.right;
     }
 
+    /**
+     * return the left side of this complex function , if the function is valid will never be null.
+     * @return a function represent the left side of this Complex function.
+     */
     @Override
     public function left() {
         return this.left;
     }
 
+    /**
+     * return the right side of this Complex function, this side could be null.
+     * @return function represent the right side of this complex function .(if it have right side.)
+     */
     @Override
     public function right() {
         return this.right;
     }
 
+    /**
+     * ComplexFunction operations :PLUS,TIMES,DIVID,COMP,MAX,MIN,ERROR,NONE,
+     * @return Operation of this Complex function.
+     */
     @Override
     public Operation getOp() {
         return this.op;
     }
 
+    /**
+     * this calculate the Complex function value at point.
+     * @param x is a parameter that we want see the value of the function at this x.
+     * @return the value of the function at point x.
+     */
     @Override
     public double f(double x) {
         if (this.op == Operation.Times) return this.left.f(x) * this.right.f(x);
