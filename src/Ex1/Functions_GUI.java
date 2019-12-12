@@ -10,8 +10,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-
-
+/**
+ * @authors Orian hindi and Shani hayik.
+ */
 
 public class Functions_GUI implements functions {
     private LinkedList<function> fList = new LinkedList<>();
