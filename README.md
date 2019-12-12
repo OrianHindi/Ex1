@@ -1,4 +1,4 @@
-Task 1 – Read me 
+Task 1 – Read me
 
 
 On our task we improved and expanded our last task number 0, We included support for general mathematical functions, Complex functions, file saving and display in a graphical window. This task uses the class we wrote in the previous assignment number 0, we updated our classes because of changes in the interfaces. 
