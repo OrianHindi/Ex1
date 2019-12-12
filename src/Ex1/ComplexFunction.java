@@ -16,7 +16,8 @@ public class ComplexFunction implements  complex_function {
      * @param right the right function of the complex function.
      */
     public ComplexFunction(Operation op, function left,function right){
-       if(op == Operation.Error) throw new RuntimeException("ERROR.Change Operation.");
+
+        if(op == Operation.Error) throw new RuntimeException("ERROR.Change Operation.");
         this.op = op;
         this.left= left;
         this.right=right;
@@ -145,6 +146,7 @@ public class ComplexFunction implements  complex_function {
      */
     @Override
     public void div(function right) {
+        if(right.equals(new Polynom("0"))) throw new RuntimeException("Cant DIVIDE by 0");
         if (this.right == null) {
             this.right = right;
             this.op = Operation.Divid;
@@ -254,6 +256,7 @@ public class ComplexFunction implements  complex_function {
      */
     @Override
     public double f(double x) {
+        if(this.right!= null && this.right.f(x)==0 && this.op==Operation.Divid) throw new RuntimeException("Cant divide by 0");
         if (this.op == Operation.Times) return this.left.f(x) * this.right.f(x);
         if (this.op == Operation.Plus) return this.left.f(x) + this.right.f(x);
         if (this.op == Operation.Divid) return this.left.f(x) / this.right.f(x);
@@ -292,7 +295,6 @@ public class ComplexFunction implements  complex_function {
         int Index = getPsik(s);
         function left = initRecursive(s.substring(i + 1, Index));
         function right = initRecursive(s.substring(Index + 1, s.length() - 1));
-
         function ans = new ComplexFunction(help, left, right);
         return ans;
     }
@@ -406,4 +408,5 @@ public class ComplexFunction implements  complex_function {
         }
         return true;
     }
+
 }
