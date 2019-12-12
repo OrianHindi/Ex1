@@ -248,8 +248,8 @@ public class ComplexFunction implements  complex_function {
     }
 
     /**
-     * this calculate the Complex function value at point.
-     * @param x is a parameter that we want see the value of the function at this x.
+     * this function calculate the Complex function value at point x.
+     * @param x is a parameter that we want to calculate the value of the function.
      * @return the value of the function at point x.
      */
     @Override
@@ -264,6 +264,11 @@ public class ComplexFunction implements  complex_function {
 
     }
 
+    /**
+     * this function build a new function from a String that represent a complex function.
+     * @param s String represent a complex function in the shape of: max(mul(x^2,4),div(x+2,x))
+     * @return function that have beeb build from the string that we get as input.
+     */
     @Override
     public function initFromString(String s) {
         ComplexFunction temp = new ComplexFunction();
@@ -271,6 +276,11 @@ public class ComplexFunction implements  complex_function {
         return ans;
     }
 
+    /**
+     * a casing function for the initFromString function.
+     * @param s String  the represent a Complex function.
+     * @return function that built from the String.
+     */
     private function initRecursive(String s) {
         if (!s.contains("(") || !s.contains(")")) {
             return new Polynom(s);
@@ -286,6 +296,11 @@ public class ComplexFunction implements  complex_function {
         return ans;
     }
 
+    /**
+     * a private function to get index of ','.
+     * @param s String that we want to find the index of the ',' the split the function to right and left.
+     * @return the index .
+     */
     private int getPsik(String s) {
         int count = 0;
         int ans = 0;
@@ -300,17 +315,29 @@ public class ComplexFunction implements  complex_function {
         return ans;
     }
 
+    /**
+     * Copy this Complex function deep copy.
+     * @return function that same as this Complex function.
+     */
     @Override
     public function copy() {
         function ans = new ComplexFunction(this);
         return ans;
     }
 
+    /**
+     * @return A string that represent this Complex function.
+     */
     public String toString() {
         if(this.op==Operation.None&& this.left!=null) return this.left.toString();
         return this.checkOP(this.op) + this.left.toString() + "," + this.right.toString() + ")";
     }
 
+    /**
+     * A private function that return the right Operation from a string.
+     * @param s String that represent a Operation.
+     * @return
+     */
     private Operation opFromString(String s) {
         switch (s) {
             case "plus":
@@ -329,7 +356,11 @@ public class ComplexFunction implements  complex_function {
                 return Operation.None;
         }
     }
-
+    /**
+     * A private function the return a string represent the Operation.
+     * @param op Opeeation that we want to show it as a string.
+     * @return return the string that equals to the operation.
+     */
     private String checkOP(Operation op) {
         switch (op) {
             case Plus:
@@ -357,6 +388,11 @@ public class ComplexFunction implements  complex_function {
         }
     }
 
+    /**
+     * This function check if two function are logically equals.
+     * @param obj is the function that we want to check if equals to this complex function.
+     * @return true if equals or false if not.
+     */
     public boolean equals(Object obj) {
         function cf = (function) obj;
         int x=-100;

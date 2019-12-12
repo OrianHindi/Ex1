@@ -234,4 +234,19 @@ public class Functions_GUI implements functions {
     public function get(int i){
         return this.fList.get(i);
     }
+
+    public static void main(String[] args) {
+        Functions_GUI gf = new Functions_GUI();
+        ComplexFunction help= new ComplexFunction();
+       String[] s0= {"max(div(mul(x^12,4x^3),4x^2),3)","min(comp(4x^2,3),3)","x^2+5x+3","max(mul(div(4x,3),x^3),3x+2)"};
+        for (int i = 0; i <4 ; i++) {
+            gf.add(help.initFromString(s0[i]));
+        }
+        try {
+            gf.saveToFile("1234.txt");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        }
 }

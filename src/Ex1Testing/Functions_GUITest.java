@@ -39,7 +39,7 @@ public class Functions_GUITest {
         }
         catch(Exception e) {e.printStackTrace();}
 
-        String JSON_param_file = "/Users/yardn/Desktop/GUI_params.txt";
+        String JSON_param_file = "GUI_params.txt";
         data.drawFunctions(JSON_param_file);
     }
     private functions _data=null;
@@ -79,8 +79,6 @@ public class Functions_GUITest {
             assertEquals(fg.get(i).toString(),fg2.get(i).toString());
         }
     }
-
-
     //the default drawFunctions.
     @Test
     public void drawFunctions() {
