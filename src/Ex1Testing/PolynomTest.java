@@ -36,7 +36,6 @@ public class PolynomTest {
     }
 
 
-    //problem with polynom 0 need to check this.
     @Test
     public void add() {
         for (int i = 0; i <Polynoms1.length ; i++) {
@@ -95,8 +94,6 @@ public class PolynomTest {
         for (int i = 0; i <Polynoms1.length ; i++) {
             Polynoms1[i].add(new Monom("x^"+i));
             Polynoms1[i].add(new Monom("" +i));
-            System.out.println(ans[i].toString());
-            System.out.println(Polynoms1[i].toString());
             assertEquals(true,Polynoms1[i].equals(ans[i]));
         }
         for (int i = 0; i <Polynoms.length ; i++) {
@@ -121,7 +118,6 @@ public class PolynomTest {
         Polynoms[5] = new Polynom("-0.3x^2+5x+1");
         for (int i = 0; i <Polynoms.length ; i++) {
             Polynoms[i].add(Polynoms1[i]);
-            System.out.println(Polynoms[i]);
             assertEquals(false,Polynoms[i].isZero());
         }
     }
@@ -159,9 +155,9 @@ public class PolynomTest {
         Polynom s= new Polynom("-3x+4");
         Polynom s1= new Polynom("5x^2-5x-76");
         Polynom s2 = new Polynom("-5x^2+5");
-        assertEquals(10.40206,s.area(-1.3,3,0.0001),0.00001);
-        assertEquals(0.0,s1.area(-1.3,3,0.0001),0.00001);
-        assertEquals(6.6666,s2.area(-1.3,3,0.0001),0.0001);
+        assertEquals(10.4016670,s.area(-1.3,3,Monom.EPSILON),Monom.EPSILON);
+        assertEquals(0.0,s1.area(-1.3,3,Monom.EPSILON),Monom.EPSILON);
+        assertEquals(6.6666666,s2.area(-1.3,3,Monom.EPSILON),Monom.EPSILON);
 
 
     }

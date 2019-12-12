@@ -183,10 +183,6 @@ public class Monom implements function{
 		}
 		return false;
 	}
-	// you may (always) add other methods.
-
-	//****** Private Methods and Data *******
-
 
 	private void set_coefficient(double a){
 		this._coefficient = a;
@@ -198,38 +194,6 @@ public class Monom implements function{
 	private static Monom getNewZeroMonom() {return new Monom(ZERO);}
 	private double _coefficient;
 	private int _power;
-
-	public static void main(String[] args) {
-//			String[] secondcheck;
-//			String[] check = s.split("x");
-//			System.out.println(check.length);
-//			System.out.println(check[0]);
-//			System.out.println(check[1]);
-//			if(check[1].contains("\\^")) {
-//				secondcheck=check[1].split("\\^");
-//				System.out.println(secondcheck.length);
-//				System.out.println(secondcheck[0]);
-//			}
-		//		System.out.println(x);
-//		String p = "4px^90";
-////		Monom a = new Monom(p);
-////		Monom b = new Monom("0");
-////		Monom c = new Monom("-9x^17");
-////
-////		System.out.println("a=" + a.toString());
-////		System.out.println("b=" + b.toString());
-////		System.out.println("c=" + c.toString());
-////		c.multipy(a);
-////		System.out.println( " c*a =  " + c.toString());
-////		b.multipy(a);
-////		System.out.println("b*a =   " + b.toString());
-
-		Monom p1 = new Monom("x^3");
-		Polynom s2 = new Polynom("x^3");
-		//function s2 = s.initFromString("mul(mul(x,x),x)");
-		System.out.println(p1.equals(s2));
-
-	}
 
 }
 

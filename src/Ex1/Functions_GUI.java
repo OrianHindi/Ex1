@@ -22,47 +22,41 @@ public class Functions_GUI implements functions {
     public Functions_GUI(){
     }
     @Override
-    public void initFromFile(String file)  {
-        try {
-            File functionFile = new File(file);
+    public void initFromFile(String file) throws IOException {
 
-            Scanner scan = new Scanner(functionFile);
-            String s = "";
-            while (scan.hasNext()) {
-                s = scan.nextLine();
-                if (!s.contains("(") || !s.contains(")")) {
-                    this.fList.add(new Polynom(s));
-                } else this.fList.add(getInList.initFromString(s));
+        File functionFile = new File(file);
+
+        Scanner scan = new Scanner(functionFile);
+        String s = "";
+        while (scan.hasNext()) {
+            s = scan.nextLine();
+            if (!s.contains("(") || !s.contains(")")) {
+                this.fList.add(new Polynom(s));
             }
-        }
-        catch(Exception e){
-            System.err.println("Path does not exist");
-
+            else this.fList.add(getInList.initFromString(s));
         }
     }
 
 
+
+
     @Override
-    public void saveToFile(String file)  {
-        try {
-            FileWriter File = new FileWriter(file);
-            Iterator<function> it = this.fList.iterator();
-            StringBuilder SB = new StringBuilder();
-            while (it.hasNext()) {
-                SB.append(it.next() + "\n");
-            }
-            File.write(SB.toString());
-            File.close();
+    public void saveToFile(String file) throws IOException {
+
+        FileWriter File = new FileWriter(file);
+        Iterator<function> it = this.fList.iterator();
+        StringBuilder SB = new StringBuilder();
+        while (it.hasNext()) {
+            SB.append(it.next() + "\n");
         }
-        catch(Exception e){
-            System.err.println("Wrong path of file.");
-        }
-        }
+        File.write(SB.toString());
+        File.close();
+    }
 
-
-
-
-    private void drawFunctions(){
+    public void drawFunctions(){
+        Range rx = new Range(-15,15);
+        Range ry= new Range(-15,15);
+        this.drawFunctions(1000,600,rx,ry,200);
 
     }
     @Override
@@ -127,7 +121,26 @@ public class Functions_GUI implements functions {
 
         }
         catch(FileNotFoundException| IllegalArgumentException |com.google.gson.JsonSyntaxException| com.google.gson.JsonIOException e){
-            e.printStackTrace();
+            if(e instanceof  IllegalArgumentException){
+                System.out.println("Canvas problems,open a default canvas. ");
+                this.drawFunctions();
+            }
+            else if(e instanceof com.google.gson.JsonSyntaxException){
+                this.drawFunctions();
+                System.out.println("print default canvas.");
+                throw new com.google.gson.JsonSyntaxException("com.google.gson.JsonSyntaxException.");
+            }
+            else if(e instanceof  com.google.gson.JsonIOException){
+                this.drawFunctions();
+                System.out.println("print default canvas.");
+                throw new com.google.gson.JsonIOException("com.google.gson.JsonIOException");
+            }
+            else{
+                this.drawFunctions();
+                System.out.println("File wasnt found, print default canvas.");
+                e.printStackTrace();
+            }
+
         }
 
     }
@@ -160,7 +173,7 @@ public class Functions_GUI implements functions {
 
     @Override
     public <T> T[] toArray(T[] ts) {
-        return null;
+        return this.fList.toArray(ts);
     }
 
     @Override
@@ -175,22 +188,22 @@ public class Functions_GUI implements functions {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        return false;
+        return this.fList.containsAll(collection);
     }
 
     @Override
     public boolean addAll(Collection<? extends function> collection) {
-        return false;
+        return this.fList.addAll(collection);
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        return false;
+        return this.fList.removeAll(collection);
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        return false;
+        return this.fList.retainAll(collection);
     }
 
     @Override
@@ -198,16 +211,8 @@ public class Functions_GUI implements functions {
         this.fList.clear();
 
     }
-
-    public static void main(String[] args) throws IOException {
-        Functions_GUI fg = new Functions_GUI();
-        fg.initFromFile("/Users/yardn/Desktop/1234.txt");
-        Iterator<function> it = fg.fList.iterator();
-        while(it.hasNext()){
-            System.out.println(it.next());
-        }
-       fg.drawFunctions("/Users/yardn/Desktop/GUI_params (1).txt");
-
-
+    public function get(int i){
+        return this.fList.get(i);
     }
+
 }

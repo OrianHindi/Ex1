@@ -138,10 +138,9 @@ public class MonomTest{
     @Test
     public void copy() {
         String[] s = new String[]{"5.0x", "3.0x", "2.0x"};
-        Monom m1 = new Monom("");
         for (int i = 0; i < s.length; i++) {
             Monom m2 = new Monom(s[i]);
-            m1= (Monom) m2.copy();
+            Monom m1= (Monom) m2.copy();
             assertEquals(m1.toString(), m2.toString());
         }
     }

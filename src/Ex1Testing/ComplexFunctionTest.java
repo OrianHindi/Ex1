@@ -1,50 +1,50 @@
-import Ex1.ComplexFunction;
-import Ex1.Monom;
-import Ex1.Operation;
-import Ex1.Polynom;
+import Ex1.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class ComplexFunctionTest {
-    String[] s = new String[]{"5x+1", "3x^2", "2x"};
-    String[] s1 = new String[]{"x", "3x+2", "x^2"};
+    String[] s = {"5x+1", "3x^2", "2x"};
+    String[] s1 = {"x", "3x+2", "x^2"};
+    static ComplexFunction helper = new ComplexFunction();
 
 
     @Test
     public void plus() {
-        String[] expected = new String[]{"6x+1", "3x^2+3x+2", "2x+x^2"};
+        String[] expected ={"mul(plus(5x+1,x),x)", "mul(plus(3x^2,3x+2),3x+2)","mul(plus(2x,x^2),x^2)"};
         for (int i = 0; i < s.length; i++) {
             ComplexFunction cf = new ComplexFunction(new Polynom(s[i]));
             ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));
-            ComplexFunction ex = new ComplexFunction(new Polynom(expected[i]));
+            function check = helper.initFromString(expected[i]);
             cf.plus(cf1);
-            assertEquals(cf, ex);
+            cf.mul(cf1);
+            assertEquals(check,cf);
         }
     }
 
 
     @Test
     public void mul() {
-        String[] expected1 = new String[]{"5+(1/x)", "(3x^2)/(3x+2)", "2/x"};
+        String[] expected1 ={"mul(5.0x+1.0,x)","mul(3.0x^2,3.0x+2.0)", "mul(2.0x,1.0x^2)"};
         for (int i = 0; i < s.length; i++) {
             ComplexFunction cf = new ComplexFunction(new Polynom(s[i]));
             ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));
-            ComplexFunction ex = new ComplexFunction(new Polynom(expected1[i]));
-            cf.div(cf1);
-            assertEquals(cf, ex);
+            function check = helper.initFromString(expected1[i]);
+            cf.mul(cf1);
+            assertEquals(check,cf);
         }
+
     }
 
     @Test
     public void div() {
-        String[] expected1 = new String[]{"5x^2+x", "9x^3+6x^2", "2x^3"};
+        String[] expected1 = {"div(5x+1,x)","div(3x^2,3x+2)", "div(2x,x^2)"};
         for (int i = 0; i < s.length; i++) {
             ComplexFunction cf = new ComplexFunction(new Polynom(s[i]));
             ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));
-            ComplexFunction ex = new ComplexFunction(new Polynom(expected1[i]));
-            cf.mul(cf1);
-            assertEquals(cf, ex);
+            cf.div(cf1);
+            function check = helper.initFromString(expected1[i]);
+            assertEquals(check,cf );
         }
     }
 
@@ -83,7 +83,7 @@ public class ComplexFunctionTest {
 
     @Test
     public void comp() {
-        String[] expected1 = new String[]{"5x+1", "27x^2+36x+12", "2x^2"};
+        String[] expected1 ={"5x+1", "27x^2+36x+12", "2x^2"};
         for (int i = 0; i < s.length; i++) {
             ComplexFunction cf = new ComplexFunction(new Polynom(s[i]));
             ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));

@@ -5,7 +5,12 @@ public class ComplexFunction implements  complex_function {
     public Operation op=Operation.None;
     public function left=null,right=null;
 
-
+    public ComplexFunction(Operation op, function left,function right){
+       if(op == Operation.Error) throw new RuntimeException("ERROR.Change Operation.");
+        this.op = op;
+        this.left= left;
+        this.right=right;
+    }
     public ComplexFunction(String s, function left, function right) {
         s = s.toLowerCase();
         switch (s) {
@@ -46,8 +51,7 @@ public class ComplexFunction implements  complex_function {
                 break;
 
             default:
-                System.err.println("Wrong Operation,CF didnt built.");
-                return;
+               throw new RuntimeException("Wrong string for Operation.try again.");
         }
     }
 
@@ -202,7 +206,6 @@ public class ComplexFunction implements  complex_function {
     private function initRecursive(String s) {
         if (!s.contains("(") || !s.contains(")")) {
             return new Polynom(s);
-
         }
         String help = "";
         int i = s.indexOf('(');
@@ -236,6 +239,7 @@ public class ComplexFunction implements  complex_function {
     }
 
     public String toString() {
+        if(this.op==Operation.None&& this.left!=null) return this.left.toString();
         return this.checkOP(this.op) + this.left.toString() + "," + this.right.toString() + ")";
     }
 
@@ -289,69 +293,13 @@ public class ComplexFunction implements  complex_function {
         function cf = (function) obj;
         int x=-100;
         while (x<=100) {
-            if (cf.f(x) != this.f(x)) return false;
+            double s1=(double)Math.round(this.f(x)*10000000000000000d/10000000000000000d);
+            double s2 = (double)Math.round(cf.f(x)*10000000000000000d/10000000000000000d);
+            if (Math.abs(s1-s2)>Monom.EPSILON) return false;
+
             x++;
         }
         return true;
-    }
-
-
-
-
-    public static void main(String[] args) {
-//        ComplexFunction e = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
-//        function e1= e.copy();
-//        System.out.println(e1);
-//        System.out.println(e);
-//        e1=(ComplexFunction)e1;
-//        System.out.println(((ComplexFunction) e1).op);
-//        System.out.println(((ComplexFunction) e1).right);
-//        System.out.println(((ComplexFunction) e1).left);
-//        System.out.println("NOW E -------------");
-//        System.out.println(e.left());
-//        System.out.println(e.right());
-//        System.out.println(e.getOp());
-//        System.out.println( "be4 add");
-//        Monom m = new Monom(4,0);
-//
-//        Polynom s = new Polynom("x^2+3x-5");
-//        e.div(s);
-//        Polynom s2= new Polynom("x^3+x^2+x");
-//        e.comp(s2);
-//        System.out.println(e.toString());
-//        String check= e.toString();
-//        function new1= e.initFromString(e.toString());
-//        System.out.println(new1.toString());
-//        System.out.println(e.f(2));
-//        e.plus(new Monom(4,2));
-//        System.out.println(e.toString());
-//        System.out.println(new1.toString());
-//        ComplexFunction r = new ComplexFunction("plus", new Monom(2,4),new Monom(4,1));
-//
-//        String q = "mul(div(mul(8,8),4x^2),div(10,5))";
-//        function f = r.initFromString(q);
-//        System.out.println(f.toString());
-        // r.pt.printInOrder();
-        // double x = r.f(1);
-        //  System.out.println(x);
-        // System.out.println("t");
-
-        //ComplexFunction s = (ComplexFunction)r.copy();
-         //ComplexFunction s = new ComplexFunction(r.copy());
-
-//        ComplexFunction cf = new ComplexFunction(new Polynom("-x+x+1"));
-//        cf.plus(new Polynom("2x+x^2"));
-//        Polynom s = new Polynom("2x+1+x^2");
-//        System.out.println(cf.equals(s));
-//
-//        System.out.println("hhgfhgf");
-
-
-            ComplexFunction cf = new ComplexFunction("plus",new Monom(4,3),new Monom(4,2));
-            System.out.println(cf.toString());
-
-
-
     }
 
 }

@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import javax.management.RuntimeErrorException;
 import javax.swing.plaf.synth.SynthToolTipUI;
 
-
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
  * 1. Riemann's Integral: https://en.wikipedia.org/wiki/Riemann_integral
@@ -358,11 +357,6 @@ public class Polynom implements Polynom_able{
 		function ans = new Polynom(s);
 		return ans;
 	}
-
-
-
-
-
 	/**
 	 * the function is check if there are any same power.if there is add it to the monom.
 	 * @param list :repesent the Polynom.
@@ -384,16 +378,6 @@ public class Polynom implements Polynom_able{
 		return true;
 	}
 
-
 	public LinkedList<Monom> arr = new LinkedList<Monom>();
-
-	public static void main(String[] args) {
-		Polynom s = new Polynom("-5x^2+5");
-		double x = s.area(-1.3,3,0.0001);
-		System.out.println(x);
-
-		}
-
-
-	}
+}
 
