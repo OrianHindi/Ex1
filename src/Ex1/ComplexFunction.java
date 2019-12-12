@@ -271,6 +271,7 @@ public class ComplexFunction implements  complex_function {
      */
     @Override
     public function initFromString(String s) {
+        s=s.replaceAll(" ", "");
         ComplexFunction temp = new ComplexFunction();
         function ans = temp.initRecursive(s);
         return ans;
@@ -405,5 +406,4 @@ public class ComplexFunction implements  complex_function {
         }
         return true;
     }
-
 }
