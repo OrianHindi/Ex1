@@ -146,7 +146,6 @@ public class ComplexFunction implements  complex_function {
      */
     @Override
     public void div(function right) {
-        if(right.equals(new Polynom("0"))) throw new RuntimeException("Cant DIVIDE by 0");
         if (this.right == null) {
             this.right = right;
             this.op = Operation.Divid;
@@ -408,5 +407,16 @@ public class ComplexFunction implements  complex_function {
         }
         return true;
     }
+
+    public static void main(String[] args) {
+        ComplexFunction cf =new  ComplexFunction(new Polynom("x^2+5"));
+        Polynom s = new Polynom("x^2-x^2");
+        cf.div(new Polynom("x^2-x^2"));
+        System.out.println(cf.toString());
+        System.out.println(cf.f(4));
+        cf.mul(new Polynom("x^3"));
+        System.out.println(cf.f(47));
+    }
+
 
 }

@@ -44,7 +44,7 @@ public class ComplexFunctionTest {
             ComplexFunction cf1 = new ComplexFunction(new Polynom(s1[i]));
             cf.div(cf1);
             function check = helper.initFromString(expected1[i]);
-            assertEquals(check,cf );
+            assertEquals(check.toString(),cf.toString() );
         }
     }
 

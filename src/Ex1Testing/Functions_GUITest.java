@@ -55,7 +55,7 @@ public class Functions_GUITest {
             e.printStackTrace();
         }
         for (int i = 0; i <xf.size() ; i++) {
-            assertEquals(xf.get(i),same.get(i));
+            assertEquals(xf.get(i).toString(),same.get(i).toString());
         }
     }
 
